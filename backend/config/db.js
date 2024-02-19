@@ -1,3 +1,4 @@
+//require("dotenv").config();
 const mysql = require('mysql2');
 const pool = mysql.createPool({
     host: process.env.DB_HOST,
@@ -6,6 +7,15 @@ const pool = mysql.createPool({
     password: process.env.DB_PASSWORD,
 });
 
+/*
+//Testataan sql kysely
+let sql = "SELECT * FROM pelaaja;";
+pool.execute(sql, function(err, result){
+    if (err) throw err;
 
+    console.log(result);
+});
+
+*/
 //Pääsy pooliin modulesta
 module.exports = pool.promise();

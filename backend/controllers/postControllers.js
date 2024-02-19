@@ -6,7 +6,7 @@ exports.getAllPosts = async (req, res, next) => {
     try {
         //Käytetään [] ja _ jotta postmanissa kun tehdään get niin tuodaan vain halutut asiat näkyviin eikä kaikkea
         // kenttätietoja yms yms
-        const [posts, _] = await uusiKayttaja.findAll();
+        const [posts, _] = await uusiKayttaja.haeKaikkiPelaajat();
 
         res.status(200).json({posts});
     } catch (error) {

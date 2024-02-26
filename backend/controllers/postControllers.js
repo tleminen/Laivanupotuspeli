@@ -37,8 +37,8 @@ exports.createNewPost = async (req, res, next) => {
 exports.putPosts = async (req, res, next) => {
   try {
     let ID = req.params.id;
-    let { Pisteet } = req.body;
-    await Post.updateByID(ID, Pisteet);
+    await uusiKayttaja.updateByID(ID);
+    res.status(200).json({ message: "Pisteet päivittynyt" });
   } catch (error) {
     console.log(error);
     next(error);

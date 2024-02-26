@@ -36,14 +36,9 @@ class Post {
   }
 
   //pisteiden päivitys
-  static updateByID(ID, updated) {
-    const fields = Object.keys(updated)
-      .map((key) => `${key} = ?`)
-      .join(", ");
-    const values = Object.values(updated);
-    let sql = `UPDATE pelaaja SET ${fields} WHERE ID = ?`;
-    values.push(ID);
-    return db.execute(sql, values);
+  static updateByID(ID) {
+    let sql = `UPDATE pelaaja SET Pisteet = Pisteet +1 WHERE id = ${ID}`;
+    return db.execute(sql);
   }
 }
 

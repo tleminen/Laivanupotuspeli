@@ -44,19 +44,20 @@ exports.putPosts = async (req, res, next) => {
     next(error);
   }
 
-  //GET kirjautuminen
-  exports.kirjautuminen = async (req, res, next) => {
-    try {
-      //let { Kayttajatunnus, Salasana } = req.body;
-      const [kayttaja, _] = await uusiKayttaja.kirjautuminen(
-        Kayttajatunnus,
-        Salasana
-      );
-      res.status(200).json({ kayttaja });
-    } catch (error) {
-      console.log(error);
-      //Viedään error julkiseen virheiden käsittelijään
-      next(error);
-    }
-  };
+};
+
+ //GET kirjautuminen
+ exports.kirjautuminen = async (req, res, next) => {
+  try {
+    let { Kayttajatunnus, Salasana } = req.body;
+    const [kayttaja, _] = await uusiKayttaja.kirjautuminen(
+      Kayttajatunnus,
+      Salasana
+    );
+    res.status(200).json({ kayttaja });
+  } catch (error) {
+    console.log(error);
+    //Viedään error julkiseen virheiden käsittelijään
+    next(error);
+  }
 };

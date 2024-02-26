@@ -12,12 +12,12 @@ class Post {
   async tallennus() {
     //SQL tietokantaan lisäys
     let sql = `
-        INSERT INTO posts(
+        INSERT INTO pelaaja(
             Kayttajatunnus, Salasana, Pisteet
         )
         VALUES(
             '${this.Kayttajatunnus}',
-            'AES_ENCRYPT('${this.body}','key')',
+            AES_ENCRYPT('${this.Salasana}','key'),
             '${this.Pisteet}'
         )
         `;

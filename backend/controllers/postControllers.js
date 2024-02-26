@@ -47,10 +47,14 @@ exports.putPosts = async (req, res, next) => {
   //GET kirjautuminen
   exports.kirjautuminen = async (req, res, next) => {
     try {
-      const kayttaja = await uusiKayttaja.kirjautuminen();
+      //let { Kayttajatunnus, Salasana } = req.body;
+      const [kayttaja, _] = await uusiKayttaja.kirjautuminen(
+        Kayttajatunnus,
+        Salasana
+      );
       res.status(200).json({ kayttaja });
     } catch (error) {
-      console.log("Käyttäjää ei löytynyt (Väärä käyttäjätunnus tai salasana)");
+      console.log(error);
       //Viedään error julkiseen virheiden käsittelijään
       next(error);
     }

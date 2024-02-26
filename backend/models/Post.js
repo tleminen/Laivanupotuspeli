@@ -29,9 +29,21 @@ class Post {
     return newPost;
   }
 
+  //kaikkien käyttäjien haku
   static haeKaikkiPelaajat() {
     let sql = "SELECT * FROM pelaaja ORDER BY Pisteet DESC;";
     return db.execute(sql);
+  }
+
+  //pisteiden päivitys
+  static updateByID(ID, updated) {
+    const fields = Object.keys(updated)
+      .map((key) => `${key} = ?`)
+      .join(", ");
+    const values = Object.values(updated);
+    let sql = `UPDATE pelaaja SET ${fields} WHERE ID = ?`;
+    values.push(ID);
+    return db.execute(sql, values);
   }
 }
 

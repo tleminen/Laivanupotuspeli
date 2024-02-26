@@ -40,6 +40,11 @@ class Post {
     let sql = `UPDATE pelaaja SET Pisteet = Pisteet +1 WHERE id = ${ID}`;
     return db.execute(sql);
   }
+
+  static kirjautuminen(Kayttajatunnus, Salasana) {
+    let sql = `SELECT * FROM pelaaja WHERE Kayttajatunnus = ${Kayttajatunnus} AND Salasana = ${Salasana}`;
+    return db.execute(sql);
+  }
 }
 
 //Exportataan, jotta voimme käyttää class "Post" postcontrollers.js luokassa

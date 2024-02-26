@@ -1,7 +1,7 @@
 //importataan jotta voimme käyttää Post luokkaa
 const uusiKayttaja = require("../models/Post");
 
-//GET kaikki
+//GET kaikki pelaajat
 exports.getAllPosts = async (req, res, next) => {
   try {
     //Käytetään [] ja _ jotta postmanissa kun tehdään get niin tuodaan vain halutut asiat näkyviin eikä kaikkea
@@ -16,7 +16,7 @@ exports.getAllPosts = async (req, res, next) => {
     next(error);
   }
 };
-//POST
+//POST rekisteröinti
 exports.createNewPost = async (req, res, next) => {
   try {
     //Haetaan postmanista tehty postaus
@@ -33,7 +33,7 @@ exports.createNewPost = async (req, res, next) => {
     next(error);
   }
 };
-//PUT
+//PUT pisteen lisäys +1
 exports.putPosts = async (req, res, next) => {
   try {
     let ID = req.params.id;
@@ -43,4 +43,16 @@ exports.putPosts = async (req, res, next) => {
     console.log(error);
     next(error);
   }
+
+  //GET kirjautuminen
+  exports.kirjautuminen = async (req, res, next) => {
+    try {
+      const kayttaja = await uusiKayttaja.kirjautuminen();
+      res.status(200).json({ kayttaja });
+    } catch (error) {
+      console.log("Käyttäjää ei löytynyt (Väärä käyttäjätunnus tai salasana)");
+      //Viedään error julkiseen virheiden käsittelijään
+      next(error);
+    }
+  };
 };

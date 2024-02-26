@@ -6,6 +6,6 @@ router.route("/").post(postControllers.createNewPost); //lisaa
 
 router.route("/").get(postControllers.getAllPosts); //hae kaikki
 
-router.route("/muokkaa/:id").put(postControllers.putPosts); //muokkaa IDn perusteella
+router.route("/:id").put(postControllers.putPosts); //muokkaa IDn perusteella
 
 module.exports = router;

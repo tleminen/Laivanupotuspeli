@@ -42,7 +42,7 @@ class Post {
   }
 
   static kirjautuminen(Kayttajatunnus, Salasana) {
-    let sql = `SELECT * FROM pelaaja WHERE Kayttajatunnus = ${Kayttajatunnus} AND AES_DECRYPT(Salasana,'key') = ${Salasana}`;
+    let sql = `SELECT * FROM pelaaja WHERE Kayttajatunnus = '${Kayttajatunnus}' AND AES_DECRYPT(Salasana,'key') = '${Salasana}'`;
     return db.execute(sql);
   }
 }

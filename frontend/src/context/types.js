@@ -1,0 +1,4 @@
+export const GET_KAYTTAJAT = "GET_KAYTTAJA";
+export const GET_KAYTTAJAID = "GET_KAYTTAJAID";
+export const ADD_KAYTTAJA = "ADD_KAYTTAJA";
+export const EDIT_KAYTTAJA = "EDIT_KAYTTAJA";

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 const Pelialusta = () => {
   const rivit = 4;
-  const sarakeet = 5;
+  const sarakkeet = 5;
 
   const [PelaajaAlusta, setPelaajaAlusta] = useState(
     Array(rivit).fill(Array(sarakkeet).fill(false))
@@ -34,8 +34,8 @@ const Pelialusta = () => {
       ] = true;
 
       // Place opponent's ships
-      VastustajaAlustaKopio[vastustajaKoordinaatti.row][
-        vastustajaKoordinaatti.col
+      VastustajaAlustaKopio[vastustajaKoordinaatti.rivi][
+        vastustajaKoordinaatti.sarake
       ] = true;
     }
 
@@ -48,26 +48,26 @@ const Pelialusta = () => {
   }, []);
 
   const handleAttack = (rivi, sarake) => {
-    const hitsCopy = JSON.parse(JSON.stringify(hits));
+    const osumaKopio = JSON.parse(JSON.stringify(Osuma));
 
     // Check if the attack hits opponent's ship
     if (VastustajaAlusta[rivi][sarake]) {
-      hitsCopy[rivi][sarake] = true;
+      osumaKopio[rivi][sarake] = true;
     }
 
-    setHits(hitsCopy);
+    setOsuma(osumaKopio);
   };
 
   return (
     <div>
       <div>
-        <h2>Your Board</h2>
+        <h2>Oma kenttä</h2>
         <table>
           <tbody>
-            {playerBoard.map((rivi, rowIndex) => (
-              <tr key={rowIndex}>
-                {row.map((cell, colIndex) => (
-                  <td key={colIndex} className={cell ? "ship" : ""}></td>
+            {PelaajaAlusta.map((rivi, rivipaikka) => (
+              <tr key={rivipaikka}>
+                {rivi.map((cell, sarakepaikka) => (
+                  <td key={sarakepaikka} className={cell ? "laiva" : ""}></td>
                 ))}
               </tr>
             ))}
@@ -75,16 +75,16 @@ const Pelialusta = () => {
         </table>
       </div>
       <div>
-        <h2>Opponent's Board</h2>
+        <h2>Vastustajan kenttä</h2>
         <table>
           <tbody>
             {hits.map((rivi, rowIndex) => (
-              <tr key={rowIndex}>
-                {row.map((cell, colIndex) => (
+              <tr key={rivipaikka}>
+                {rivi.map((cell, sarakepaikka) => (
                   <td
-                    key={colIndex}
-                    className={cell ? "hit" : ""}
-                    onClick={() => handleAttack(rowIndex, colIndex)}
+                    key={sarakepaikka}
+                    className={cell ? "osuma" : ""}
+                    onClick={() => handleAttack(rivipaikka, sarakepaikka)}
                   ></td>
                 ))}
               </tr>

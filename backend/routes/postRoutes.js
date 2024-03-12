@@ -8,6 +8,6 @@ router.route("/").get(postControllers.getAllPosts); //hae kaikki
 
 router.route("/:id").put(postControllers.putPosts); //muokkaa IDn perusteella
 
-router.route("/kirjaudu").get(postControllers.kirjautuminen); //Kirjautuminen
+router.route("/kirjaudu").post(postControllers.kirjautuminen); //Kirjautuminen
 
 module.exports = router;

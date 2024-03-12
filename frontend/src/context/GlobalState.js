@@ -19,10 +19,10 @@ const GlobalState = (props) => {
       console.error(error);
     }
   };
-  const getKayttajaid = async (user, password) => {
+  const postKirjautuminen = async (user, password) => {
     try {
       let sql = `http://localhost:3000/laivanupotus/kirjaudu/`;
-      let res = await axios.get(sql);
+      let res = await axios.post(sql);
       let { data } = res;
       console.log("GET_KAYTTAJAID:");
       dispatch({ type: "GET_KAYTTAJAID", payload: data.posts });

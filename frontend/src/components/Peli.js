@@ -78,7 +78,7 @@ const Pelialusta = () => {
         <h2>Vastustajan kenttä</h2>
         <table>
           <tbody>
-            {hits.map((rivi, rowIndex) => (
+            {Osuma.map((rivi, rivipaikka) => (
               <tr key={rivipaikka}>
                 {rivi.map((cell, sarakepaikka) => (
                   <td

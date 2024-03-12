@@ -1,7 +1,12 @@
-import { use } from "express/lib/application";
 import React, { useRef, useState } from "react";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useContext } from "react";
+import AuthContext from "../context/AuthProvider";
+
+import axios from './api/axios';
+const LOGIN_URL = '/auth';
+
 const Kirjautuminen = () => {
+  const { setAuth } = useContext(AuthContext);
   const userRef = useRef();
   const errRef = useRef();
 
@@ -18,30 +23,89 @@ const Kirjautuminen = () => {
     setErrorMessage("");
   }, [user, password]);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        LOGIN_URL,
+        JSON.stringify({ user, pwd }),
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
+      console.log(JSON.stringify(response?.data));
+      //console.log(JSON.stringify(response));
+      const accessToken = response?.data?.accessToken;
+      const roles = response?.data?.roles;
+      setAuth({ user, pwd, roles, accessToken });
+      setUser("");
+      setPwd("");
+      setSuccess(true);
+    } catch (err) {
+      if (!err?.response) {
+        setErrMsg("No Server Response");
+      } else if (err.response?.status === 400) {
+        setErrMsg("Missing Username or Password");
+      } else if (err.response?.status === 401) {
+        setErrMsg("Unauthorized");
+      } else {
+        setErrMsg("Login Failed");
+      }
+      errRef.current.focus();
+    }
+  };
+
   return (
     <>
-      <section>
-        <p
-          ref={errRef}
-          className={errorMessage ? "errmsg" : "offscreen"}
-          aria-live="assertive"
-        >
-          {errorMessage}
-        </p>
-        <h1>Kirjautuminen laivanupotuspeliin</h1>
-        <form>
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            ref={userRef}
-            autoComplete="off"
-            onChange={(e) => setUser(e.target.value)}
-            value={user}
-            required
-          />
-        </form>
-      </section>
+      {success ? (
+        <section>
+          <h1>Olet kirjautunut sisään</h1>
+          <br />
+          <span className="line">
+            {/*put router link here*/}
+            <a href="#">Aloita peli</a>
+          </span>
+        </section>
+      ) : (
+        <section>
+          <p
+            ref={errRef}
+            className={errorMessage ? "errmsg" : "offscreen"}
+            aria-live="assertive"
+          >
+            {errorMessage}
+          </p>
+          <h1>Kirjautuminen laivanupotuspeliin</h1>
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="username">Käyttäjätunnus:</label>
+            <input
+              type="text"
+              id="username"
+              ref={userRef}
+              autoComplete="off"
+              onChange={(e) => setUser(e.target.value)}
+              value={user}
+              required
+            />
+            <label htmlFor="password">Salasana:</label>
+            <input
+              type="password"
+              id="password"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+              required
+            />
+            <button>Kirjaudu sisään</button>
+          </form>
+          <p>
+            <span className="line">
+              {/*put router link here*/}
+              <a href="#">Luo uusi käyttäjä</a>
+            </span>
+          </p>
+        </section>
+      )}
     </>
   );
 };

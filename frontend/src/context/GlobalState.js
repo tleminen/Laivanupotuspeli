@@ -19,9 +19,9 @@ const GlobalState = (props) => {
       console.error(error);
     }
   };
-  const getKayttajaid = async (id) => {
+  const getKayttajaid = async (user, password) => {
     try {
-      let sql = `http://localhost:3000/laivanupotus/${id}`;
+      let sql = `http://localhost:3000/laivanupotus/kirjaudu/`;
       let res = await axios.get(sql);
       let { data } = res;
       console.log("GET_KAYTTAJAID:");

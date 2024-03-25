@@ -21,27 +21,20 @@ const Pelialusta = () => {
   };
 
   const asetaLaiva = () => {
-    const PelaajaTaulukkoKopio = JSON.parse(JSON.stringify(PelaajaTalukko));
     const VastustajaTaulukkoKopio = JSON.parse(
       JSON.stringify(VastustajaTaulukko)
     );
 
     for (let i = 0; i < 4; i++) {
-      const pelaajaKoordinaatti = satunnaisValinta();
       const vastustajaKoordinaatti = satunnaisValinta();
 
-      // Place player's ships
-      PelaajaTaulukkoKopio[pelaajaKoordinaatti.row][
-        pelaajaKoordinaatti.col
-      ] = true;
+      // Vastustajan laivojen asetus
 
-      // Place opponent's ships
       VastustajaTaulukkoKopio[vastustajaKoordinaatti.rivi][
         vastustajaKoordinaatti.sarake
       ] = true;
     }
 
-    setPelaajaTaulukko(PelaajaTaulukkoKopio);
     setVastustajaTaulukko(VastustajaTaulukkoKopio);
   };
 
@@ -49,7 +42,16 @@ const Pelialusta = () => {
     asetaLaiva();
   }, []);
 
-  const handleAttack = (rivi, sarake) => {
+  const kasittelePelaajanLaiva = (rivi, sarake) => {
+    const PelaajaTaulukkoKopio = JSON.parse(JSON.stringify(PelaajaTalukko));
+
+    // Pelaajan laivojen asetus.
+
+    PelaajaTaulukkoKopio[rivi][sarake] = true;
+    setPelaajaTaulukko(PelaajaTaulukkoKopio);
+  };
+
+  const kasitteleHyokkays = (rivi, sarake) => {
     const osumaKopio = JSON.parse(JSON.stringify(Osuma));
 
     // Check if the attack hits opponent's ship
@@ -69,7 +71,13 @@ const Pelialusta = () => {
             {PelaajaTalukko.map((rivi, rivipaikka) => (
               <tr key={rivipaikka}>
                 {rivi.map((cell, sarakepaikka) => (
-                  <td key={sarakepaikka} className={cell ? "laiva" : ""}></td>
+                  <td
+                    key={sarakepaikka}
+                    className={cell ? "laiva" : ""}
+                    onClick={() =>
+                      kasittelePelaajanLaiva(rivipaikka, sarakepaikka)
+                    }
+                  ></td>
                 ))}
               </tr>
             ))}
@@ -86,7 +94,7 @@ const Pelialusta = () => {
                   <td
                     key={sarakepaikka}
                     className={cell ? "osuma" : ""}
-                    onClick={() => handleAttack(rivipaikka, sarakepaikka)}
+                    onClick={() => kasitteleHyokkays(rivipaikka, sarakepaikka)}
                   ></td>
                 ))}
               </tr>

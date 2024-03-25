@@ -5,13 +5,13 @@ const Pelialusta = () => {
   const sarakkeet = 5;
 
   const [PelaajaTalukko, setPelaajaTaulukko] = useState(
-    Array(rivit).fill(Array(sarakkeet).fill(false))
+    Array.from({ length: rivit }, () => Array(sarakkeet).fill(false))
   );
   const [VastustajaTaulukko, setVastustajaTaulukko] = useState(
-    Array(rivit).fill(Array(sarakkeet).fill(false))
+    Array.from({ length: rivit }, () => Array(sarakkeet).fill(false))
   );
   const [Osuma, setOsuma] = useState(
-    Array(rivit).fill(Array(sarakkeet).fill(false))
+    Array.from({ length: rivit }, () => Array(sarakkeet).fill(false))
   );
 
   //testausta.

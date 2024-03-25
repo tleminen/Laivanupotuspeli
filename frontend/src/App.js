@@ -21,7 +21,7 @@ function App() {
             element={<Rekisteroityminen />}
           />{" "}
           <Route
-            path="/laivanupotus/:id"
+            path="/laivanupotus/peli"
             element={<Peli />}
           />{" "}
         </Routes>{" "}

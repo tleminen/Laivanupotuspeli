@@ -1,4 +1,4 @@
-
+import ContextKayttaja from "../context/KayttajaContext";
 import { useRef, useState, useEffect, useContext } from "react";
 import AuthContext from "../context/AuthProvider";
 import { Link } from "react-router-dom";
@@ -15,6 +15,8 @@ const Kirjautuminen = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [success, setSuccess] = useState(false);
 
+  const KayttajaContext = useContext(ContextKayttaja);
+
   useEffect(() => {
     userRef.current.focus();
   }, []);
@@ -26,16 +28,10 @@ const Kirjautuminen = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        LOGIN_URL,
-        JSON.stringify({ user, password }),
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      );
+      const response = KayttajaContext.postKirjautuminen(user, password);
+
       console.log(JSON.stringify(response?.data));
-      //console.log(JSON.stringify(response));
+      console.log(JSON.stringify(response));
       const accessToken = response?.data?.accessToken;
       const roles = response?.data?.roles;
       //setAuth({ user, pwd, roles, accessToken });
@@ -44,13 +40,13 @@ const Kirjautuminen = () => {
       //setSuccess(true);
     } catch (err) {
       if (!err?.response) {
-        //setErrMsg("No Server Response");
+        setErrorMessage("No Server Response");
       } else if (err.response?.status === 400) {
-        //setErrMsg("Missing Username or Password");
+        setErrorMessage("Missing Username or Password");
       } else if (err.response?.status === 401) {
-        //setErrMsg("Unauthorized");
+        setErrorMessage("Unauthorized");
       } else {
-        //setErrMsg("Login Failed");
+        setErrorMessage("Login Failed");
       }
       errRef.current.focus();
     }
@@ -63,8 +59,7 @@ const Kirjautuminen = () => {
           <h1>Olet kirjautunut sisään</h1>
           <br />
           <span className="line">
-            {/*put router link here*/}
-            <a href="#">Aloita peli</a>
+          <Link to="/laivanupotus/peli/">Aloita peli</Link>
           </span>
         </section>
       ) : (

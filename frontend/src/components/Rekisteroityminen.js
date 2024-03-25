@@ -5,30 +5,34 @@ import PropTypes from "prop-types";
 import ContextKayttaja from "../context/KayttajaContext";
 
 const LisaaKayttaja = () => {
-    let history = useNavigate();
+    let navigate = useNavigate();
 
     const [Kayttajatunnus, setKayttajatunnus] = useState("");
-    const [Pisteet, setPisteet] = useState("");
+    //const [Pisteet, setPisteet] = useState("");
     const [Salasana, setSalasana] = useState("");
     const [virheet, setVirheet] = useState("");
 
     const KayttajaContext = useContext(ContextKayttaja);
+    
 
     const handleSubmit = async (e) => {
         const uusiKayttaja = {
             kayttajatunnus: Kayttajatunnus,
-            pisteet: Pisteet,
             salasana: Salasana,
+            pisteet: 0
 
         };
 
+    
+
         console.log("uusiKayttaja", uusiKayttaja);
 
-        KayttajaContext.setKayttajanTiedot(uusiKayttaja);
+        KayttajaContext.setKayttaja(uusiKayttaja);
+        console.log("Onnistui");
 
         window.location.reload();
 
-        history("/");
+        navigate("/");
 
     }; 
 

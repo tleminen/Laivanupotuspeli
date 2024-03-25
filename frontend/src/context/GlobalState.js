@@ -51,6 +51,7 @@ const GlobalState = (props) => {
           dispatch({ type: "EDIT_KAYTTAJA", payload: res.data });
           console.log(res.data.posts);
         });
+        console.log(res);
     } catch (error) {
       console.error(error);
     }

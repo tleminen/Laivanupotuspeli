@@ -8,9 +8,10 @@ app.use(express.json());
 
 app.use("/laivanupotus", require("./routes/postRoutes"));
 
+
 //CORS -määrittely
 app.use(function (req, res, next) {
-  res.setHeader("Access-Control-Allow-Origin");
+  res.setHeader("Access-Control-Allow-Origin", "*");
 
   res.setHeader(
     "Access-Control-Allow-Methods",

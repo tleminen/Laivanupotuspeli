@@ -1,7 +1,7 @@
 import "./App.css";
 import Kirjautuminen from "./components/Kirjautuminen";
 import Rekisteroityminen from "./components/Rekisteroityminen";
-import Pelialusta from "./components/Peli";
+import Peli from "./components/Peli";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import GlobalState from "./context/GlobalState";
 import React from "react";
@@ -23,7 +23,7 @@ function App() {
                 path="/laivanupotus/rekisterointi/"
                 element={<Rekisteroityminen />}
               />{" "}
-              <Route path="/laivanupotus/peli" element={<Pelialusta />} />{" "}
+              <Route path="/laivanupotus/peli" element={<Peli />} />{" "}
             </Routes>{" "}
           </div>{" "}
         </div>{" "}

@@ -2,7 +2,6 @@ import ContextKayttaja from "../context/KayttajaContext";
 import { useRef, useState, useEffect, useContext } from "react";
 import AuthContext from "../context/AuthProvider";
 import { Link } from "react-router-dom";
-import axios from '../api/axios';
 const LOGIN_URL = '/auth';
 
 const Kirjautuminen = () => {
@@ -35,10 +34,10 @@ const Kirjautuminen = () => {
       
       const accessToken = response?.data?.accessToken;
       const roles = response?.data?.roles;
-      //setAuth({ user, pwd, roles, accessToken });
-      //setUser("");
-      //setPwd("");
-      //setSuccess(true);
+      setAuth({ user, password, roles, accessToken });
+      setUser("");
+      setPassword("");
+      setSuccess(true);
     } catch (err) {
       if (!err?.response) {
         setErrorMessage("No Server Response");
@@ -60,7 +59,7 @@ const Kirjautuminen = () => {
           <h1>Olet kirjautunut sisään</h1>
           <br />
           <span className="line">
-          <Link to="/laivanupotus/peli/">Aloita peli</Link>
+          <Link to="/laivanupotus/peli/"><button>Aloita peli</button></Link>
           </span>
         </section>
       ) : (

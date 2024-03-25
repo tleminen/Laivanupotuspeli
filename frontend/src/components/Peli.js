@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./App.css"; // Tuodaan tyylikirjasto
 
 const Pelialusta = () => {
   const rivit = 4;

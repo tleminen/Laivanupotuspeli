@@ -61,7 +61,7 @@ const Pelialusta = () => {
   const kasitteleHyokkays = (rivi, sarake) => {
     const osumaKopio = JSON.parse(JSON.stringify(Osuma));
 
-    // Check if the attack hits opponent's ship
+    // Tarkistus vastustajan osumista.
     if (VastustajaTaulukko[rivi][sarake]) {
       osumaKopio[rivi][sarake] = true;
     }

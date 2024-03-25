@@ -1,38 +1,3 @@
-
-import React, { useState, useEffect } from "react";
-import "../App.css"; // Tuodaan tyylikirjasto
-
-const Pelialusta = () => {
-  const rivit = 4;
-  const sarakkeet = 5;
-
-  const [PelaajaTalukko, setPelaajaTaulukko] = useState(
-    Array.from({ length: rivit }, () => Array(sarakkeet).fill(true))
-  );
-  const [VastustajaTaulukko, setVastustajaTaulukko] = useState(
-    Array.from({ length: rivit }, () => Array(sarakkeet).fill(true))
-  );
-  const [Osuma, setOsuma] = useState(
-    Array.from({ length: rivit }, () => Array(sarakkeet).fill(true))
-  );
-
-  //testausta.
-  useEffect(() => {
-    console.log("PelaajaTalukko:", PelaajaTalukko);
-    console.log("VastustajaTaulukko:", VastustajaTaulukko);
-    console.log("Osuma:", Osuma);
-  }, [PelaajaTalukko, VastustajaTaulukko, Osuma]);
-
-  const satunnaisValinta = () => {
-    const rivi = Math.floor(Math.random() * rivit);
-    const sarake = Math.floor(Math.random() * sarakkeet);
-    return { rivi, sarake };
-  };
-
-  const asetaLaiva = () => {
-    const VastustajaTaulukkoKopio = JSON.parse(
-      JSON.stringify(VastustajaTaulukko)
-=======
 class Peli {
   constructor() {
     this.playerGrid = document.getElementById("playerGrid");
@@ -46,7 +11,6 @@ class Peli {
     this.playerGrid.addEventListener(
       "click",
       this.handlePlayerClick.bind(this)
->>>>>>> 05d35f4acdd4516ae33fe00927e19954d7a8fc2b
     );
   }
 

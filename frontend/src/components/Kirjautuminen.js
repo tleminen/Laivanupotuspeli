@@ -1,7 +1,7 @@
 
 import { useRef, useState, useEffect, useContext } from "react";
 import AuthContext from "../context/AuthProvider";
-
+import { Link } from "react-router-dom";
 import axios from '../api/axios';
 const LOGIN_URL = '/auth';
 
@@ -99,10 +99,11 @@ const Kirjautuminen = () => {
             <button>Kirjaudu sisään</button>
           </form>
           <p>
-            <span className="line">
-              {/*put router link here*/}
-              <a href="#">Luo uusi käyttäjä</a>
-            </span>
+          <li className="nav-item">
+              <Link to="/laivanupotus/" className="nav-link">
+              Luo uusi käyttäjä?
+              </Link>
+            </li>
           </p>
         </section>
       )}

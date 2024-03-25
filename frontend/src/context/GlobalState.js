@@ -62,7 +62,7 @@ const GlobalState = (props) => {
         kayttajat: state.kayttajat,
         setKayttaja,
         getKayttajat,
-        getKayttajaid,
+        postKirjautuminen,
         updateKayttajaPisteet
       }}
     >

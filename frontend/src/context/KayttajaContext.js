@@ -1,3 +1,3 @@
-export { createContext } from "react";
+import { createContext } from "react";
 const ContextKayttaja = createContext();
 export default ContextKayttaja;

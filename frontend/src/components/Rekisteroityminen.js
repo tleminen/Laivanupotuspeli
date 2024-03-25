@@ -10,6 +10,7 @@ const LisaaKayttaja = () => {
     const [Kayttajatunnus, setKayttajatunnus] = useState("");
     const [Pisteet, setPisteet] = useState("");
     const [Salasana, setSalasana] = useState("");
+    const [virheet, setVirheet] = useState("");
 
     const KayttajaContext = useContext(ContextKayttaja);
 
@@ -63,7 +64,7 @@ const LisaaKayttaja = () => {
                     name="Salasana"
                     className="form-control form-control-lg" 
                     placeholder="Syötä salasana..."
-                    value={Sukunimi}
+                    value={Salasana}
                     onChange={(event) => setSalasana(event.target.value)} 
                     error={virheet.Salasana}
                     />
@@ -82,4 +83,4 @@ const LisaaKayttaja = () => {
 
                     };
 
-                    export default Rekisteroityminen;
+                    export default LisaaKayttaja;

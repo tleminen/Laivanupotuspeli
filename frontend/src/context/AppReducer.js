@@ -9,7 +9,7 @@ export default (state, action) => {
     case "GET_KAYTTAJAID":
       return {
         ...state,
-        kayttajat: kayttajatieto.id,
+        kayttajat: payload,
       };
     case "ADD_KAYTTAJA":
       return {

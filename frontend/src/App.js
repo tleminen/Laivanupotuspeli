@@ -4,6 +4,8 @@ import Rekisteroityminen from "./components/Rekisteroityminen";
 import Pelialusta from "./components/Peli";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import GlobalState from "./context/GlobalState";
+import React from "react";
+
 function App() {
   return (
     <GlobalState>

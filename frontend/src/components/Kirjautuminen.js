@@ -1,8 +1,8 @@
-import React, { useRef, useState } from "react";
+
 import { useRef, useState, useEffect, useContext } from "react";
 import AuthContext from "../context/AuthProvider";
 
-import axios from './api/axios';
+import axios from '../api/axios';
 const LOGIN_URL = '/auth';
 
 const Kirjautuminen = () => {
@@ -28,7 +28,7 @@ const Kirjautuminen = () => {
     try {
       const response = await axios.post(
         LOGIN_URL,
-        JSON.stringify({ user, pwd }),
+        JSON.stringify({ user, password }),
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
@@ -38,19 +38,19 @@ const Kirjautuminen = () => {
       //console.log(JSON.stringify(response));
       const accessToken = response?.data?.accessToken;
       const roles = response?.data?.roles;
-      setAuth({ user, pwd, roles, accessToken });
-      setUser("");
-      setPwd("");
-      setSuccess(true);
+      //setAuth({ user, pwd, roles, accessToken });
+      //setUser("");
+      //setPwd("");
+      //setSuccess(true);
     } catch (err) {
       if (!err?.response) {
-        setErrMsg("No Server Response");
+        //setErrMsg("No Server Response");
       } else if (err.response?.status === 400) {
-        setErrMsg("Missing Username or Password");
+        //setErrMsg("Missing Username or Password");
       } else if (err.response?.status === 401) {
-        setErrMsg("Unauthorized");
+        //setErrMsg("Unauthorized");
       } else {
-        setErrMsg("Login Failed");
+        //setErrMsg("Login Failed");
       }
       errRef.current.focus();
     }

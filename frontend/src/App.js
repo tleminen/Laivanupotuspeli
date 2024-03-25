@@ -1,34 +1,33 @@
 import "./App.css";
 import Kirjautuminen from "./components/Kirjautuminen";
 import Rekisteroityminen from "./components/Rekisteroityminen";
-import Peli from "./components/Peli";
+import Pelialusta from "./components/Peli";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import GlobalState from "./context/GlobalState";
 function App() {
-  return <GlobalState>
-  {" "}
-  <Router>
-    {" "}
-    <div className="App">
+  return (
+    <GlobalState>
       {" "}
-      <div className="container">
+      <Router>
         {" "}
-        <Routes>
+        <div className="App">
           {" "}
-          <Route path="/" element={<Kirjautuminen />} />{" "}
-          <Route
-            path="/laivanupotus/rekisterointi/"
-            element={<Rekisteroityminen />}
-          />{" "}
-          <Route
-            path="/laivanupotus/peli"
-            element={<Peli />}
-          />{" "}
-        </Routes>{" "}
-      </div>{" "}
-    </div>{" "}
-  </Router>{" "}
-</GlobalState>
+          <div className="container">
+            {" "}
+            <Routes>
+              {" "}
+              <Route path="/" element={<Kirjautuminen />} />{" "}
+              <Route
+                path="/laivanupotus/rekisterointi/"
+                element={<Rekisteroityminen />}
+              />{" "}
+              <Route path="/laivanupotus/peli" element={<Pelialusta />} />{" "}
+            </Routes>{" "}
+          </div>{" "}
+        </div>{" "}
+      </Router>{" "}
+    </GlobalState>
+  );
 }
 
 export default App;

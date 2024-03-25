@@ -76,7 +76,7 @@ const Pelialusta = () => {
                     className={cell ? "laiva" : ""}
                     style={{ backgroundColor: cell ? "navy" : "inherit" }}
                     onClick={() =>
-                      handlePelaajanLaivanAsetus(rivipaikka, sarakepaikka)
+                      kasittelePelaajanLaiva(rivipaikka, sarakepaikka)
                     }
                   ></td>
                 ))}

@@ -1,61 +1,124 @@
-class Peli {
-  constructor() {
-    this.playerGrid = document.getElementById("playerGrid");
-    this.opponentGrid = document.getElementById("opponentGrid");
-    this.playerCells = [];
-    this.opponentCells = [];
-    this.ships = 5;
-    this.gridSize = 20; // 4x5 grid
-    this.initializeGrids();
-    this.placeShips();
-    this.playerGrid.addEventListener(
-      "click",
-      this.handlePlayerClick.bind(this)
+import React, { useState, useEffect } from "react";
+import "../App.css"; // Tuodaan tyylikirjasto
+
+const Pelialusta = () => {
+  const rivit = 4;
+  const sarakkeet = 5;
+
+  const [PelaajaTalukko, setPelaajaTaulukko] = useState(
+    Array.from({ length: rivit }, () => Array(sarakkeet).fill(true))
+  );
+  const [VastustajaTaulukko, setVastustajaTaulukko] = useState(
+    Array.from({ length: rivit }, () => Array(sarakkeet).fill(true))
+  );
+  const [Osuma, setOsuma] = useState(
+    Array.from({ length: rivit }, () => Array(sarakkeet).fill(true))
+  );
+
+  //testausta.
+  useEffect(() => {
+    console.log("PelaajaTalukko:", PelaajaTalukko);
+    console.log("VastustajaTaulukko:", VastustajaTaulukko);
+    console.log("Osuma:", Osuma);
+  }, [PelaajaTalukko, VastustajaTaulukko, Osuma]);
+
+  const satunnaisValinta = () => {
+    const rivi = Math.floor(Math.random() * rivit);
+    const sarake = Math.floor(Math.random() * sarakkeet);
+    return { rivi, sarake };
+  };
+
+  const asetaLaiva = () => {
+    const VastustajaTaulukkoKopio = JSON.parse(
+      JSON.stringify(VastustajaTaulukko)
     );
-  }
 
-  initializeGrids() {
-    for (let i = 0; i < this.gridSize; i++) {
-      const playerCell = document.createElement("div");
-      playerCell.classList.add("cell");
-      playerCell.dataset.index = i;
-      this.playerCells.push(playerCell);
-      this.playerGrid.appendChild(playerCell);
+    for (let i = 0; i < 4; i++) {
+      const vastustajaKoordinaatti = satunnaisValinta();
 
-      const opponentCell = document.createElement("div");
-      opponentCell.classList.add("cell", "hidden");
-      opponentCell.dataset.index = i;
-      this.opponentCells.push(opponentCell);
-      this.opponentGrid.appendChild(opponentCell);
+      // Vastustajan laivojen asetus
+
+      VastustajaTaulukkoKopio[vastustajaKoordinaatti.rivi][
+        vastustajaKoordinaatti.sarake
+      ] = true;
     }
-  }
 
-  placeShips() {
-    for (let i = 0; i < this.ships; i++) {
-      let randomIndex;
-      do {
-        randomIndex = Math.floor(Math.random() * this.gridSize);
-      } while (this.opponentCells[randomIndex].classList.contains("ship"));
-      this.opponentCells[randomIndex].classList.add("ship");
+    setVastustajaTaulukko(VastustajaTaulukkoKopio);
+  };
+
+  useEffect(() => {
+    asetaLaiva();
+  }, []);
+
+  const kasittelePelaajanLaiva = (rivi, sarake) => {
+    const PelaajaTaulukkoKopio = JSON.parse(JSON.stringify(PelaajaTalukko));
+
+    // Pelaajan laivojen asetus.
+
+    PelaajaTaulukkoKopio[rivi][sarake] = true;
+    setPelaajaTaulukko(PelaajaTaulukkoKopio);
+  };
+
+  const kasitteleHyokkays = (rivi, sarake) => {
+    const osumaKopio = JSON.parse(JSON.stringify(Osuma));
+
+    // Tarkistus vastustajan osumista.
+    if (VastustajaTaulukko[rivi][sarake]) {
+      osumaKopio[rivi][sarake] = true;
     }
-  }
 
-  handlePlayerClick(event) {
-    if (event.target.classList.contains("cell")) {
-      const index = event.target.dataset.index;
-      const isHit = this.opponentCells[index].classList.contains("ship");
-      if (isHit) {
-        this.opponentCells[index].classList.add("hit");
-        alert("Tähtäsit laivaan!");
-      } else {
-        this.opponentCells[index].classList.add("miss");
-        alert("Ohitsit laivan.");
-      }
-    }
-  }
-}
+    setOsuma(osumaKopio);
+  };
 
-// Luo peli-instanssi kun sivu on ladattu
-document.addEventListener("DOMContentLoaded", () => {
-  const peli = new Peli();
-});
+  return (
+    <div>
+      <div>
+        <h2>Oma kenttä</h2>
+        <table>
+          <tbody>
+            {PelaajaTalukko.map((rivi, rivipaikka) => {
+              console.log("Pelaajan rivi:", rivi);
+              return (
+                <tr key={rivipaikka}>
+                  {rivi.map((cell, sarakepaikka) => {
+                    console.log("Pelaajan solu:", cell);
+                    return (
+                      <td
+                        key={sarakepaikka}
+                        className={cell ? "laiva" : ""}
+                        style={{ backgroundColor: cell ? "navy" : "inherit" }}
+                        onClick={() =>
+                          kasittelePelaajanLaiva(rivipaikka, sarakepaikka)
+                        }
+                      ></td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <h2>Vastustajan kenttä</h2>
+        <table>
+          <tbody>
+            {Osuma.map((rivi, rivipaikka) => (
+              <tr key={rivipaikka}>
+                {rivi.map((cell, sarakepaikka) => (
+                  <td
+                    key={sarakepaikka}
+                    className={cell ? "osuma" : ""}
+                    onClick={() => kasitteleHyokkays(rivipaikka, sarakepaikka)}
+                  ></td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
+export default Pelialusta;

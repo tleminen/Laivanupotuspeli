@@ -4,10 +4,10 @@ const Pelialusta = () => {
   const rivit = 4;
   const sarakkeet = 5;
 
-  const [PelaajaAlusta, setPelaajaAlusta] = useState(
+  const [PelaajaTalukko, setPelaajaTaulukko] = useState(
     Array(rivit).fill(Array(sarakkeet).fill(false))
   );
-  const [VastustajaAlusta, setVastustajaAlusta] = useState(
+  const [VastustajaTaulukko, setVastustajaTaulukko] = useState(
     Array(rivit).fill(Array(sarakkeet).fill(false))
   );
   const [Osuma, setOsuma] = useState(
@@ -21,26 +21,28 @@ const Pelialusta = () => {
   };
 
   const asetaLaiva = () => {
-    const PelaajaAlustaKopio = JSON.parse(JSON.stringify(PelaajaAlusta));
-    const VastustajaAlustaKopio = JSON.parse(JSON.stringify(VastustajaAlusta));
+    const PelaajaTaulukkoKopio = JSON.parse(JSON.stringify(PelaajaTalukko));
+    const VastustajaTaulukkoKopio = JSON.parse(
+      JSON.stringify(VastustajaTaulukko)
+    );
 
     for (let i = 0; i < 4; i++) {
       const pelaajaKoordinaatti = satunnaisValinta();
       const vastustajaKoordinaatti = satunnaisValinta();
 
       // Place player's ships
-      PelaajaAlustaKopio[pelaajaKoordinaatti.row][
+      PelaajaTaulukkoKopio[pelaajaKoordinaatti.row][
         pelaajaKoordinaatti.col
       ] = true;
 
       // Place opponent's ships
-      VastustajaAlustaKopio[vastustajaKoordinaatti.rivi][
+      VastustajaTaulukkoKopio[vastustajaKoordinaatti.rivi][
         vastustajaKoordinaatti.sarake
       ] = true;
     }
 
-    setPelaajaAlusta(PelaajaAlustaKopio);
-    setVastustajaAlusta(VastustajaAlustaKopio);
+    setPelaajaTaulukko(PelaajaTaulukkoKopio);
+    setVastustajaTaulukko(VastustajaTaulukkoKopio);
   };
 
   useEffect(() => {
@@ -51,7 +53,7 @@ const Pelialusta = () => {
     const osumaKopio = JSON.parse(JSON.stringify(Osuma));
 
     // Check if the attack hits opponent's ship
-    if (VastustajaAlusta[rivi][sarake]) {
+    if (VastustajaTaulukko[rivi][sarake]) {
       osumaKopio[rivi][sarake] = true;
     }
 
@@ -64,7 +66,7 @@ const Pelialusta = () => {
         <h2>Oma kenttä</h2>
         <table>
           <tbody>
-            {PelaajaAlusta.map((rivi, rivipaikka) => (
+            {PelaajaTalukko.map((rivi, rivipaikka) => (
               <tr key={rivipaikka}>
                 {rivi.map((cell, sarakepaikka) => (
                   <td key={sarakepaikka} className={cell ? "laiva" : ""}></td>

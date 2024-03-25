@@ -14,6 +14,13 @@ const Pelialusta = () => {
     Array(rivit).fill(Array(sarakkeet).fill(false))
   );
 
+  //testausta.
+  useEffect(() => {
+    console.log("PelaajaTalukko:", PelaajaTalukko);
+    console.log("VastustajaTaulukko:", VastustajaTaulukko);
+    console.log("Osuma:", Osuma);
+  }, [PelaajaTalukko, VastustajaTaulukko, Osuma]);
+
   const satunnaisValinta = () => {
     const rivi = Math.floor(Math.random() * rivit);
     const sarake = Math.floor(Math.random() * sarakkeet);

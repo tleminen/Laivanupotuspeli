@@ -36,3 +36,8 @@ code {
 .grid {
   background-color: navy; /* Tämä on CSS:n sisäänrakennettu väri */
 }
+
+.grid {
+  width: 200px; /* Aseta leveys */
+  height: 200px; /* Aseta korkeus */
+}

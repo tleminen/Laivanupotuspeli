@@ -17,7 +17,7 @@ function App() {
           {" "}
           <Route path="/" element={<Kirjautuminen />} />{" "}
           <Route
-            path="/laivanupotus/"
+            path="/laivanupotus/rekisterointi/"
             element={<Rekisteroityminen />}
           />{" "}
           <Route

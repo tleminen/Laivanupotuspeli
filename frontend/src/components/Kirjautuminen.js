@@ -96,7 +96,7 @@ const Kirjautuminen = () => {
           </form>
           <p>
           <li className="nav-item">
-              <Link to="/laivanupotus/" className="nav-link">
+              <Link to="/laivanupotus/rekisterointi" className="nav-link">
               Luo uusi käyttäjä?
               </Link>
             </li>

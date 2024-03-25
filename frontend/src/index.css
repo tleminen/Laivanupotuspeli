@@ -21,3 +21,18 @@ code {
 .osuma {
   background-color: red; /* Taustaväri osumalle */
 }
+
+/* Käytetään RGB-arvoa */
+.grid {
+  background-color: rgb(0, 0, 255); /* Tämä on sinisen RGB-arvo */
+}
+
+/* Käytetään heksadesimaaliväriä */
+.grid {
+  background-color: #0000ff; /* Tämä on myös sinisen heksadesimaaliväri */
+}
+
+/* Käytetään CSS:n sisäänrakennettua väriä */
+.grid {
+  background-color: navy; /* Tämä on CSS:n sisäänrakennettu väri */
+}

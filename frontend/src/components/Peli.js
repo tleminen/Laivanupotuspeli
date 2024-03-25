@@ -75,20 +75,26 @@ const Pelialusta = () => {
         <h2>Oma kenttä</h2>
         <table>
           <tbody>
-            {PelaajaTalukko.map((rivi, rivipaikka) => (
-              <tr key={rivipaikka}>
-                {rivi.map((cell, sarakepaikka) => (
-                  <td
-                    key={sarakepaikka}
-                    className={cell ? "laiva" : ""}
-                    style={{ backgroundColor: cell ? "navy" : "inherit" }}
-                    onClick={() =>
-                      kasittelePelaajanLaiva(rivipaikka, sarakepaikka)
-                    }
-                  ></td>
-                ))}
-              </tr>
-            ))}
+            {PelaajaTalukko.map((rivi, rivipaikka) => {
+              console.log("Pelaajan rivi:", rivi);
+              return (
+                <tr key={rivipaikka}>
+                  {rivi.map((cell, sarakepaikka) => {
+                    console.log("Pelaajan solu:", cell);
+                    return (
+                      <td
+                        key={sarakepaikka}
+                        className={cell ? "laiva" : ""}
+                        style={{ backgroundColor: cell ? "navy" : "inherit" }}
+                        onClick={() =>
+                          kasittelePelaajanLaiva(rivipaikka, sarakepaikka)
+                        }
+                      ></td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

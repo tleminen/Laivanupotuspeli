@@ -8,19 +8,9 @@ app.use(express.json());
 
 app.use("/laivanupotus", require("./routes/postRoutes"));
 
-app.use((err, req, res, next) => {
-  console.log(err.stack);
-  console.log(err.name);
-  console.log(err.code);
-
-  res.status(500).json({
-    message: "Something went rely wrong",
-  });
-});
-
 //CORS -määrittely
 app.use(function (req, res, next) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Origin");
 
   res.setHeader(
     "Access-Control-Allow-Methods",
@@ -35,6 +25,18 @@ app.use(function (req, res, next) {
 
   next();
 });
+
+app.use((err, req, res, next) => {
+  console.log(err.stack);
+  console.log(err.name);
+  console.log(err.code);
+
+  res.status(500).json({
+    message: "Something went rely wrong",
+  });
+});
+
+
 
 // Listen on pc port
 const PORT = process.env.PORT || 3000;

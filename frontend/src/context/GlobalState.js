@@ -21,8 +21,8 @@ const GlobalState = (props) => {
   };
   const postKirjautuminen = async (user, password) => {
     try {
-      let sql = `http://localhost:3000/laivanupotus/kirjaudu/`;
-      let res = await axios.post(sql,user,password);
+      let sql = `http://localhost:3000/laivanupotus/`;
+      let res = await axios.post(sql, user, password);
       let { data } = res;
       console.log("GET_KAYTTAJAID:");
       dispatch({ type: "GET_KAYTTAJAID", payload: data.posts });
@@ -34,7 +34,7 @@ const GlobalState = (props) => {
   const setKayttaja = async (uusiKayttaja) => {
     try {
       const res = await axios
-        .post(`http://localhost:3000/laivanupotus`, uusiKayttaja)
+        .post(`http://localhost:3000/laivanupotus/rekisterointi`, uusiKayttaja)
         .then((res) => {
           dispatch({ type: "ADD_KAYTTAJA", payload: res.data });
           console.log(res.data.posts);
@@ -51,12 +51,12 @@ const GlobalState = (props) => {
           dispatch({ type: "EDIT_KAYTTAJA", payload: res.data });
           console.log(res.data.posts);
         });
-        console.log(res);
+      console.log(res);
     } catch (error) {
       console.error(error);
     }
   };
-  
+
   return (
     <KayttajaContext.Provider
       value={{
@@ -64,7 +64,7 @@ const GlobalState = (props) => {
         setKayttaja,
         getKayttajat,
         postKirjautuminen,
-        updateKayttajaPisteet
+        updateKayttajaPisteet,
       }}
     >
       {props.children}

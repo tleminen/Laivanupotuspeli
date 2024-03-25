@@ -54,7 +54,7 @@ const LisaaKayttaja = () => {
                     error={virheet.Kayttajatunnus}
                     />
                     
-                    <div className="invalid-feedback">Rekisteröidy</div>
+                    
                     </div>
                     <div className="form-group">
                     <label htmlFor="Salasana">Salasana</label> 
@@ -69,7 +69,7 @@ const LisaaKayttaja = () => {
                     error={virheet.Salasana}
                     />
 
-                    <div className="invalid-feedback">Rekisteröidy</div>
+            
                     </div>
                     <input
                         type="submit"

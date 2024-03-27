@@ -5,10 +5,9 @@ const express = require("express");
 const app = express();
 
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 app.use("/laivanupotus", require("./routes/postRoutes"));
-
 
 //CORS -määrittely
 app.use(function (req, res, next) {
@@ -39,8 +38,6 @@ app.use((err, req, res, next) => {
     message: "Something went rely wrong",
   });
 });
-
-
 
 // Listen on pc port
 const PORT = process.env.PORT || 3000;

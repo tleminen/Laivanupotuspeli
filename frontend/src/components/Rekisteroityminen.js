@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { useState, useReducer, useContext } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
 import ContextKayttaja from "../context/KayttajaContext";
+
 
 const LisaaKayttaja = () => {
     let navigate = useNavigate();
@@ -13,9 +13,10 @@ const LisaaKayttaja = () => {
     const [virheet, setVirheet] = useState("");
 
     const KayttajaContext = useContext(ContextKayttaja);
-    
+    console.log(KayttajaContext);
 
     const handleSubmit = async (e) => {
+        e.preventDefault();
         const uusiKayttaja = {
             kayttajatunnus: Kayttajatunnus,
             salasana: Salasana,
@@ -29,8 +30,6 @@ const LisaaKayttaja = () => {
 
         KayttajaContext.setKayttaja(uusiKayttaja);
         console.log("Onnistui");
-
-        window.location.reload();
 
         navigate("/");
 

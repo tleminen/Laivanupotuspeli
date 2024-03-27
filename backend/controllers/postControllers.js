@@ -43,17 +43,24 @@ exports.putPosts = async (req, res, next) => {
     console.log(error);
     next(error);
   }
-
 };
 
- //GET kirjautuminen
- exports.kirjautuminen = async (req, res, next) => {
+//GET kirjautuminen
+exports.kirjautuminen = async (req, res, next) => {
   try {
-    let { Kayttajatunnus, Salasana } = req.body;
-    const [kayttaja, _] = await uusiKayttaja.kirjautuminen(
+    let postitus = req.body;
+    //let { Kayttajatunnus, Salasana } = req.body;
+    /*const [kayttaja, _] = await uusiKayttaja.kirjautuminen(
       Kayttajatunnus,
       Salasana
     );
+    */
+    let jsonobj = Object.keys(postitus)[0];
+    let obj = JSON.parse(jsonobj);
+    let kt = obj.Kayttajatunnus;
+    let ss = obj.Salasana;
+    const [kayttaja, _] = await uusiKayttaja.kirjautuminen(kt, ss);
+
     res.status(200).json({ kayttaja });
   } catch (error) {
     console.log(error);

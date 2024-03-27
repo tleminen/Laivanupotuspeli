@@ -22,7 +22,9 @@ const GlobalState = (props) => {
   const postKirjautuminen = async (user, password) => {
     try {
       let sql = `http://localhost:3000/laivanupotus/`;
-      let res = await axios.post(sql, JSON.stringify(user, password));
+      const post = { Kayttajatunnus: user, Salasana: password };
+      //let res = await axios.post(sql, JSON.stringify(user, password));
+      let res = await axios.post(sql, JSON.stringify(post));
       let { data } = res;
       console.log("GET_KAYTTAJAID:");
       dispatch({ type: "GET_KAYTTAJAID", payload: data.posts });

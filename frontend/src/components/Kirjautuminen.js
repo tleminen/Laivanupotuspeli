@@ -71,7 +71,7 @@ const Kirjautuminen = () => {
           >
             {errorMessage}
           </p>
-          <h1>Kirjautuminen laivanupotuspeliin</h1>
+          <h1 className="header">Kirjautuminen laivanupotuspeliin</h1>
           <form onSubmit={handleSubmit}>
             <label htmlFor="username">Käyttäjätunnus:</label>
             <input
@@ -91,12 +91,11 @@ const Kirjautuminen = () => {
               value={password}
               required
             />
-            <button>Kirjaudu sisään</button>
+            <button type="button" class='btn btn-primary rounded-circle'>Kirjaudu sisään</button>
           </form>
           <p>
           <li className="nav-item">
-              <Link to="/laivanupotus/rekisterointi" className="nav-link">
-              Luo uusi käyttäjä?
+              <Link to="/laivanupotus/rekisterointi" className="punainen">Luo uusi käyttäjä?
               </Link>
             </li>
           </p>

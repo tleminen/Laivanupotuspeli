@@ -41,7 +41,7 @@ const LisaaKayttaja = () => {
 
     return (
         <div className="card mb-3">
-            <div className="card-header">Rekisteröidy</div> 
+            <h1>Rekisteröidy</h1> 
             <div className="card-body">
                 <form onSubmit={handleSubmit.bind(this)}> 
                 <div className="form-group">

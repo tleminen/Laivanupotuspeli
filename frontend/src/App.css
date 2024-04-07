@@ -32,3 +32,8 @@
   color:darkred;
   font-weight: bolder;
 }
+
+.space {
+  margin-bottom: 5px;
+  text-align: center;
+}

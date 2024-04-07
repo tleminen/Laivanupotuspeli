@@ -40,7 +40,7 @@ const LisaaKayttaja = () => {
     this.state({ [e.target.name]: e.target.value });
 
     return (
-        <div className="card mb-3">
+        <div className="background">
             <h1>Rekisteröidy</h1> 
             <div className="card-body">
                 <form onSubmit={handleSubmit.bind(this)}> 

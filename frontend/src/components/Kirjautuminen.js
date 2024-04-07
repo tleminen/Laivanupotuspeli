@@ -73,25 +73,33 @@ const Kirjautuminen = () => {
           </p>
           <h1 className="header">Kirjautuminen laivanupotuspeliin</h1>
           <form onSubmit={handleSubmit}>
-            <label htmlFor="username">Käyttäjätunnus:</label>
+            <div className="form-group">
             <input
               type="text"
               id="username"
+              class="space"
+              placeholder="Syötä käyttäjätunnus"
               ref={userRef}
               autoComplete="off"
               onChange={(e) => setUser(e.target.value)}
               value={user}
               required
             />
-            <label htmlFor="password">Salasana:</label>
+            </div>
+            <div className="form-group">
             <input
               type="password"
               id="password"
+              class="space"
+              placeholder="Syötä salasana"
               onChange={(e) => setPassword(e.target.value)}
               value={password}
               required
             />
-            <button type="button" class='btn btn-primary rounded-circle'>Kirjaudu sisään</button>
+            </div>
+            <div className="form-group">
+            <button className='btn btn-primary rounded-circle'>Kirjaudu sisään</button>
+            </div>
           </form>
           <p>
           <li className="nav-item">

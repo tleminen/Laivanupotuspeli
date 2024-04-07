@@ -1,124 +1,107 @@
-import React, { useState, useEffect } from "react";
-import "../App.css"; // Tuodaan tyylikirjasto
+import React, { useState } from "react";
 
-const Pelialusta = () => {
-  const rivit = 4;
-  const sarakkeet = 5;
+const BOARD_ROWS = 4;
+const BOARD_COLS = 5;
 
-  const [PelaajaTalukko, setPelaajaTaulukko] = useState(
-    Array.from({ length: rivit }, () => Array(sarakkeet).fill(true))
-  );
-  const [VastustajaTaulukko, setVastustajaTaulukko] = useState(
-    Array.from({ length: rivit }, () => Array(sarakkeet).fill(true))
-  );
-  const [Osuma, setOsuma] = useState(
-    Array.from({ length: rivit }, () => Array(sarakkeet).fill(true))
-  );
+const initializeBoard = () => {
+  const board = [];
+  for (let i = 0; i < BOARD_ROWS; i++) {
+    board.push(Array(BOARD_COLS).fill(0));
+  }
+  return board;
+};
 
-  //testausta.
-  useEffect(() => {
-    console.log("PelaajaTalukko:", PelaajaTalukko);
-    console.log("VastustajaTaulukko:", VastustajaTaulukko);
-    console.log("Osuma:", Osuma);
-  }, [PelaajaTalukko, VastustajaTaulukko, Osuma]);
+const Ship = () => {
+  return <div className="ship" />;
+};
 
-  const satunnaisValinta = () => {
-    const rivi = Math.floor(Math.random() * rivit);
-    const sarake = Math.floor(Math.random() * sarakkeet);
-    return { rivi, sarake };
-  };
-
-  const asetaLaiva = () => {
-    const VastustajaTaulukkoKopio = JSON.parse(
-      JSON.stringify(VastustajaTaulukko)
-    );
-
-    for (let i = 0; i < 4; i++) {
-      const vastustajaKoordinaatti = satunnaisValinta();
-
-      // Vastustajan laivojen asetus
-
-      VastustajaTaulukkoKopio[vastustajaKoordinaatti.rivi][
-        vastustajaKoordinaatti.sarake
-      ] = true;
-    }
-
-    setVastustajaTaulukko(VastustajaTaulukkoKopio);
-  };
-
-  useEffect(() => {
-    asetaLaiva();
-  }, []);
-
-  const kasittelePelaajanLaiva = (rivi, sarake) => {
-    const PelaajaTaulukkoKopio = JSON.parse(JSON.stringify(PelaajaTalukko));
-
-    // Pelaajan laivojen asetus.
-
-    PelaajaTaulukkoKopio[rivi][sarake] = true;
-    setPelaajaTaulukko(PelaajaTaulukkoKopio);
-  };
-
-  const kasitteleHyokkays = (rivi, sarake) => {
-    const osumaKopio = JSON.parse(JSON.stringify(Osuma));
-
-    // Tarkistus vastustajan osumista.
-    if (VastustajaTaulukko[rivi][sarake]) {
-      osumaKopio[rivi][sarake] = true;
-    }
-
-    setOsuma(osumaKopio);
-  };
-
+const Cell = ({ value, onClick, color }) => {
+  let content = "";
+  if (value === 0) {
+    content = "\u00A0"; // Non-breaking space
+  } else if (value === -1) {
+    content = "\u25A1"; // Empty square
+  } else if (value === 1) {
+    content = <Ship />;
+  }
   return (
-    <div>
-      <div>
-        <h2>Oma kenttä</h2>
-        <table>
-          <tbody>
-            {PelaajaTalukko.map((rivi, rivipaikka) => {
-              console.log("Pelaajan rivi:", rivi);
-              return (
-                <tr key={rivipaikka}>
-                  {rivi.map((cell, sarakepaikka) => {
-                    console.log("Pelaajan solu:", cell);
-                    return (
-                      <td
-                        key={sarakepaikka}
-                        className={cell ? "laiva" : ""}
-                        style={{ backgroundColor: cell ? "navy" : "inherit" }}
-                        onClick={() =>
-                          kasittelePelaajanLaiva(rivipaikka, sarakepaikka)
-                        }
-                      ></td>
-                    );
-                  })}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-      <div>
-        <h2>Vastustajan kenttä</h2>
-        <table>
-          <tbody>
-            {Osuma.map((rivi, rivipaikka) => (
-              <tr key={rivipaikka}>
-                {rivi.map((cell, sarakepaikka) => (
-                  <td
-                    key={sarakepaikka}
-                    className={cell ? "osuma" : ""}
-                    onClick={() => kasitteleHyokkays(rivipaikka, sarakepaikka)}
-                  ></td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+    <div className="cell" onClick={onClick} style={{ backgroundColor: color }}>
+      {content}
     </div>
   );
 };
 
-export default Pelialusta;
+const BattleshipGame = () => {
+  const [playerBoard, setPlayerBoard] = useState(initializeBoard());
+  const [computerBoard, setComputerBoard] = useState(initializeBoard());
+  const [currentPlayer, setCurrentPlayer] = useState("player");
+  const [playerShipsPlaced, setPlayerShipsPlaced] = useState(false);
+
+  const handleCellClick = (row, col) => {
+    // Allow player to place their ships
+    if (!playerShipsPlaced) {
+      const updatedBoard = [...playerBoard];
+      updatedBoard[row][col] = 1; // Player's ships are represented by 1
+      setPlayerBoard(updatedBoard);
+    }
+  };
+
+  const handleDonePlacingShips = () => {
+    setPlayerShipsPlaced(true);
+    // Now it's the computer's turn to place ships
+    const computerBoardWithShips = placeShipsRandomly();
+    setComputerBoard(computerBoardWithShips);
+    setCurrentPlayer("computer");
+  };
+
+  const placeShipsRandomly = () => {
+    const board = initializeBoard();
+    for (let i = 0; i < 3; i++) {
+      let row, col;
+      do {
+        row = getRandomInt(BOARD_ROWS);
+        col = getRandomInt(BOARD_COLS);
+      } while (board[row][col] !== 0);
+      board[row][col] = 1;
+    }
+    return board;
+  };
+
+  const getRandomInt = (max) => {
+    return Math.floor(Math.random() * Math.floor(max));
+  };
+
+  return (
+    <div className="game-container">
+      <div className="board">
+        {currentPlayer === "player" &&
+          playerBoard.map((row, rowIndex) =>
+            row.map((cell, colIndex) => (
+              <Cell
+                key={`${rowIndex}-${colIndex}`}
+                value={cell}
+                onClick={() => handleCellClick(rowIndex, colIndex)}
+                color="blue"
+              />
+            ))
+          )}
+        {currentPlayer === "computer" &&
+          computerBoard.map((row, rowIndex) =>
+            row.map((cell, colIndex) => (
+              <Cell
+                key={`${rowIndex}-${colIndex}`}
+                value={cell}
+                onClick={() => {}}
+                color="orange"
+              />
+            ))
+          )}
+      </div>
+      {!playerShipsPlaced && (
+        <button onClick={handleDonePlacingShips}>Done placing ships</button>
+      )}
+    </div>
+  );
+};
+
+export default BattleshipGame;

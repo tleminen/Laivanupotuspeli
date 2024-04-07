@@ -37,28 +37,41 @@ const BattleshipGame = () => {
   const [currentPlayer, setCurrentPlayer] = useState("player");
   const [playerShipsPlaced, setPlayerShipsPlaced] = useState(false);
   const [remainingShips, setRemainingShips] = useState(5);
+  const [playerTurn, setPlayerTurn] = useState(true);
 
   const handleCellClick = (row, col) => {
-    // Allow player to place their ships
-    if (
-      !playerShipsPlaced &&
-      remainingShips > 0 &&
-      playerBoard[row][col] !== 1
-    ) {
-      const updatedBoard = [...playerBoard];
-      updatedBoard[row][col] = 1; // Player's ships are represented by 1
-      setPlayerBoard(updatedBoard);
-      setRemainingShips(remainingShips - 1);
+    if (currentPlayer === "player" && playerTurn) {
+      if (
+        !playerShipsPlaced &&
+        remainingShips > 0 &&
+        playerBoard[row][col] !== 1
+      ) {
+        const updatedBoard = [...playerBoard];
+        updatedBoard[row][col] = 1; // Player's ships are represented by 1
+        setPlayerBoard(updatedBoard);
+        setRemainingShips(remainingShips - 1);
+      } else if (playerShipsPlaced && computerBoard[row][col] === 1) {
+        const updatedBoard = [...computerBoard];
+        updatedBoard[row][col] = -1; // Player hit opponent's ship
+        setComputerBoard(updatedBoard);
+        checkWinCondition(updatedBoard, "player");
+        setPlayerTurn(false); // End player's turn
+      } else if (playerShipsPlaced && computerBoard[row][col] === 0) {
+        const updatedBoard = [...computerBoard];
+        updatedBoard[row][col] = -1; // Player missed
+        setComputerBoard(updatedBoard);
+        setPlayerTurn(false); // End player's turn
+      }
     }
   };
 
   const handleDonePlacingShips = () => {
     if (remainingShips === 0) {
       setPlayerShipsPlaced(true);
+      setCurrentPlayer("computer");
       // Now it's the computer's turn to place ships
       const computerBoardWithShips = placeShipsRandomly();
       setComputerBoard(computerBoardWithShips);
-      setCurrentPlayer("computer");
     } else {
       alert("You must place all 5 ships before continuing!");
     }
@@ -81,6 +94,13 @@ const BattleshipGame = () => {
     return Math.floor(Math.random() * Math.floor(max));
   };
 
+  const checkWinCondition = (board, player) => {
+    const flattenedBoard = board.flat();
+    if (!flattenedBoard.includes(1)) {
+      alert(`Player ${player} wins!`);
+    }
+  };
+
   return (
     <div className="game-container">
       <div className="board">
@@ -101,8 +121,8 @@ const BattleshipGame = () => {
               <Cell
                 key={`${rowIndex}-${colIndex}`}
                 value={cell}
-                onClick={() => {}}
-                color="orange"
+                onClick={() => handleCellClick(rowIndex, colIndex)}
+                color={cell === -1 ? "red" : "orange"}
               />
             ))
           )}

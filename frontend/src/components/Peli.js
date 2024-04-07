@@ -36,22 +36,32 @@ const BattleshipGame = () => {
   const [computerBoard, setComputerBoard] = useState(initializeBoard());
   const [currentPlayer, setCurrentPlayer] = useState("player");
   const [playerShipsPlaced, setPlayerShipsPlaced] = useState(false);
+  const [remainingShips, setRemainingShips] = useState(5);
 
   const handleCellClick = (row, col) => {
     // Allow player to place their ships
-    if (!playerShipsPlaced) {
+    if (
+      !playerShipsPlaced &&
+      remainingShips > 0 &&
+      playerBoard[row][col] !== 1
+    ) {
       const updatedBoard = [...playerBoard];
       updatedBoard[row][col] = 1; // Player's ships are represented by 1
       setPlayerBoard(updatedBoard);
+      setRemainingShips(remainingShips - 1);
     }
   };
 
   const handleDonePlacingShips = () => {
-    setPlayerShipsPlaced(true);
-    // Now it's the computer's turn to place ships
-    const computerBoardWithShips = placeShipsRandomly();
-    setComputerBoard(computerBoardWithShips);
-    setCurrentPlayer("computer");
+    if (remainingShips === 0) {
+      setPlayerShipsPlaced(true);
+      // Now it's the computer's turn to place ships
+      const computerBoardWithShips = placeShipsRandomly();
+      setComputerBoard(computerBoardWithShips);
+      setCurrentPlayer("computer");
+    } else {
+      alert("You must place all 5 ships before continuing!");
+    }
   };
 
   const placeShipsRandomly = () => {
@@ -81,7 +91,7 @@ const BattleshipGame = () => {
                 key={`${rowIndex}-${colIndex}`}
                 value={cell}
                 onClick={() => handleCellClick(rowIndex, colIndex)}
-                color="blue"
+                color={cell === 1 ? "green" : "blue"}
               />
             ))
           )}

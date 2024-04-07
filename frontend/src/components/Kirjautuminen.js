@@ -56,10 +56,10 @@ const Kirjautuminen = () => {
     <>
       {success ? (
         <section>
-          <h1>Olet kirjautunut sisään</h1>
+          <h1 className="header">Olet kirjautunut sisään</h1>
           <br />
           <span className="line">
-          <Link to="/laivanupotus/peli/"><button>Aloita peli</button></Link>
+          <Link to="/laivanupotus/peli/"><button className='btn btn-primary rounded-circle btn-lg'>Aloita peli</button></Link>
           </span>
         </section>
       ) : (

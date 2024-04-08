@@ -7,12 +7,13 @@ const Tulos = () => {
   const KayttajaContext = useContext(kayttajaContext);
   console.log("Käyttäjät: ", KayttajaContext.kayttajat);
 
-
   useEffect(() => {
-    KayttajaContext.getKayttajat().then(() => {
+    KayttajaContext.getKayttajat()
+      .then(() => {
         KayttajaContext.getKayttajat();
         console.log("Käyttäjät haettu onnistuneesti");
-      }).catch((error) => {
+      })
+      .catch((error) => {
         console.error("Virhe käyttäjätietojen haussa:", error);
       });
   }, []);
@@ -23,17 +24,17 @@ const Tulos = () => {
         <span className="header">Urheilijat</span>
       </h1>
       {KayttajaContext.kayttajat.length ? ( // Tarkistetaan, onko käyttäjätietoja saatavilla
-      <React.Fragment>
-        {KayttajaContext.kayttajat.map((kayttajanTieto) => (
-          <TulosTiedot
-            key={kayttajanTieto && kayttajanTieto.id}
-            kayttajanTieto={kayttajanTieto}
-          />
-        ))}
-      </React.Fragment>
-    ) : (
-      <p>Ei käyttäjätietoja saatavilla</p> // Näytetään ilmoitus, jos käyttäjätietoja ei ole saatavilla
-    )}
+        <React.Fragment>
+          {KayttajaContext.kayttajat.map((kayttajanTieto) => (
+            <TulosTiedot
+              key={kayttajanTieto && kayttajanTieto.id}
+              kayttajanTieto={kayttajanTieto}
+            />
+          ))}
+        </React.Fragment>
+      ) : (
+        <p>Ei käyttäjätietoja saatavilla</p> // Näytetään ilmoitus, jos käyttäjätietoja ei ole saatavilla
+      )}
     </>
   );
 };

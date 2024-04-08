@@ -8,19 +8,20 @@ const LisaaKayttaja = () => {
     let navigate = useNavigate();
 
     const [Kayttajatunnus, setKayttajatunnus] = useState("");
-    //const [Pisteet, setPisteet] = useState("");
     const [Salasana, setSalasana] = useState("");
     const [virheet, setVirheet] = useState("");
+    const [Pisteet, setPisteet] = useState(0);
 
     const KayttajaContext = useContext(ContextKayttaja);
     console.log(KayttajaContext);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         const uusiKayttaja = {
-            kayttajatunnus: Kayttajatunnus,
-            salasana: Salasana,
-            pisteet: 0
+            Kayttajatunnus: Kayttajatunnus,
+            Salasana: Salasana,
+            Pisteet: Pisteet
 
         };
 

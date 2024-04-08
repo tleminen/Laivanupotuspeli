@@ -1,3 +1,3 @@
 import { createContext } from "react";
-const ContextKayttaja = createContext();
-export default ContextKayttaja;
+const KayttajaContext = createContext();
+export default KayttajaContext;

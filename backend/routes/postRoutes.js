@@ -2,7 +2,7 @@ const express = require("express");
 const postControllers = require("../controllers/postControllers");
 const router = express.Router();
 
-router.route("/rekisterointi").post(postControllers.createNewPost); //rekisteröityminen
+router.route("/").post(postControllers.createNewPost); //rekisteröityminen
 
 router.route("/").get(postControllers.getAllPosts); //hae kaikki
 

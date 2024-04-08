@@ -34,12 +34,13 @@ const GlobalState = (props) => {
     }
   };
   const setKayttaja = async (uusiKayttaja) => {
+    console.log("printtaa tähän: "+JSON.stringify(uusiKayttaja));
     try {
       const res = await axios
-        .post(`http://localhost:3000/laivanupotus/rekisterointi`, uusiKayttaja)
+        .post(`http://localhost:3000/laivanupotus`, uusiKayttaja)
         .then((res) => {
           dispatch({ type: "ADD_KAYTTAJA", payload: res.data });
-          console.log(res.data.posts);
+          console.log(res.data);
         });
     } catch (error) {
       console.error(error);

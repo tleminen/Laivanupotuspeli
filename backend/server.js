@@ -7,7 +7,6 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/laivanupotus", require("./routes/postRoutes"));
 
 //CORS -määrittely
 app.use((req, res, next) => {
@@ -27,6 +26,8 @@ app.use((req, res, next) => {
 
   next();
 });
+
+app.use("/laivanupotus", require("./routes/postRoutes"));
 
 app.use((err, req, res, next) => {
   console.log(err.stack);

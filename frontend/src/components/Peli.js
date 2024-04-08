@@ -35,10 +35,15 @@ const BattleshipGame = () => {
   const [playerBoard, setPlayerBoard] = useState(initializeBoard());
   const [computerBoard, setComputerBoard] = useState(initializeBoard());
   const [remainingPlayerShips, setRemainingPlayerShips] = useState(5);
-  const [playerTurn, setPlayerTurn] = useState(true);
+  const [playerTurn, setPlayerTurn] = useState(false);
+  const [gameStarted, setGameStarted] = useState(false);
 
   const handlePlayerCellClick = (row, col) => {
-    if (remainingPlayerShips > 0 && playerBoard[row][col] !== 1) {
+    if (
+      remainingPlayerShips > 0 &&
+      playerBoard[row][col] !== 1 &&
+      !gameStarted
+    ) {
       const updatedBoard = [...playerBoard];
       updatedBoard[row][col] = 1; // Player's ships are represented by 1
       setPlayerBoard(updatedBoard);
@@ -46,12 +51,25 @@ const BattleshipGame = () => {
     }
   };
 
-  const handleComputerCellClick = () => {
-    // Implement computer's turn here (random cell selection)
+  const handleComputerCellClick = (row, col) => {
+    // Ignore clicks if it's not the computer's turn or if the cell has already been clicked
+    if (!playerTurn || computerBoard[row][col] !== 0) {
+      return;
+    }
+
+    // Implement here the logic to handle the computer's turn
+    // For now, let's just toggle the cell value for testing purposes
+    const updatedBoard = [...computerBoard];
+    updatedBoard[row][col] = updatedBoard[row][col] === 0 ? -1 : 0; // Toggle cell value
+    setComputerBoard(updatedBoard);
+
+    // Now it's player's turn again
+    setPlayerTurn(false);
   };
 
-  const getRandomInt = (max) => {
-    return Math.floor(Math.random() * Math.floor(max));
+  const startGame = () => {
+    setGameStarted(true);
+    setPlayerTurn(true);
   };
 
   return (
@@ -61,7 +79,7 @@ const BattleshipGame = () => {
           {playerBoard.map((row, rowIndex) =>
             row.map((cell, colIndex) => (
               <Cell
-                key={`${rowIndex}-${colIndex}`}
+                key={`player-${rowIndex}-${colIndex}`}
                 value={cell}
                 onClick={() => handlePlayerCellClick(rowIndex, colIndex)}
                 color={cell === 1 ? "green" : cell === -1 ? "red" : "blue"}
@@ -70,18 +88,22 @@ const BattleshipGame = () => {
           )}
         </div>
         <div className="computer-board">
-          {computerBoard.map((row, rowIndex) =>
-            row.map((cell, colIndex) => (
-              <Cell
-                key={`${rowIndex}-${colIndex}`}
-                value={cell}
-                onClick={() => handleComputerCellClick(rowIndex, colIndex)}
-                color={cell === -1 ? "red" : cell === 1 ? "green" : "orange"}
-              />
-            ))
-          )}
+          {gameStarted &&
+            computerBoard.map((row, rowIndex) =>
+              row.map((cell, colIndex) => (
+                <Cell
+                  key={`computer-${rowIndex}-${colIndex}`}
+                  value={cell}
+                  onClick={() => handleComputerCellClick(rowIndex, colIndex)}
+                  color={cell === -1 ? "red" : cell === 1 ? "green" : "orange"}
+                />
+              ))
+            )}
         </div>
       </div>
+      {!gameStarted && remainingPlayerShips === 0 && (
+        <button onClick={startGame}>Aloita peli, laivat sijoitettu</button>
+      )}
     </div>
   );
 };

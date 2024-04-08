@@ -1,111 +1,175 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const BOARD_ROWS = 4;
-const BOARD_COLS = 5;
+const taulukkoRivit = 4;
+const taulukkoSarakkeet = 5;
 
-const initializeBoard = () => {
-  const board = [];
-  for (let i = 0; i < BOARD_ROWS; i++) {
-    board.push(Array(BOARD_COLS).fill(0));
+const toteutaTaulukko = () => {
+  const taulukko = [];
+  for (let i = 0; i < taulukkoRivit; i++) {
+    taulukko.push(Array(taulukkoSarakkeet).fill(0));
   }
-  return board;
+  return taulukko;
 };
 
-const Ship = () => {
-  return <div className="ship" />;
+const Laiva = () => {
+  return <div className="laiva" />;
 };
 
-const Cell = ({ value, onClick, color }) => {
-  let content = "";
+const Ruutu = ({ value, onClick, color }) => {
+  let sisalto = "";
   if (value === 0) {
-    content = "\u00A0"; // Non-breaking space
+    sisalto = "\u00A0";
   } else if (value === -1) {
-    content = "\u25A1"; // Empty square
+    sisalto = "\u25A1";
   } else if (value === 1) {
-    content = <Ship />;
+    sisalto = <Laiva />;
   }
   return (
-    <div className="cell" onClick={onClick} style={{ backgroundColor: color }}>
-      {content}
+    <div className="ruutu" onClick={onClick} style={{ backgroundColor: color }}>
+      {sisalto}
     </div>
   );
 };
 
-const BattleshipGame = () => {
-  const [playerBoard, setPlayerBoard] = useState(initializeBoard());
-  const [computerBoard, setComputerBoard] = useState(initializeBoard());
-  const [remainingPlayerShips, setRemainingPlayerShips] = useState(5);
-  const [playerTurn, setPlayerTurn] = useState(false);
-  const [gameStarted, setGameStarted] = useState(false);
+const Laivanupotus = () => {
+  const [pelaajanTaulukko, setKayttajanTaulukko] = useState(toteutaTaulukko());
+  const [vastustajanTaulukko, setVastustajanTaulukko] = useState(
+    toteutaTaulukko()
+  );
+  const [kayttajanVuoro, setKayttajanVuoro] = useState(false);
+  const [peliAlkaa, setPeliAlkaa] = useState(false);
+  const [sijoitetutLaivat, setSijoitetutLaivat] = useState(0);
 
-  const handlePlayerCellClick = (row, col) => {
-    if (
-      remainingPlayerShips > 0 &&
-      playerBoard[row][col] !== 1 &&
-      !gameStarted
-    ) {
-      const updatedBoard = [...playerBoard];
-      updatedBoard[row][col] = 1; // Player's ships are represented by 1
-      setPlayerBoard(updatedBoard);
-      setRemainingPlayerShips(remainingPlayerShips - 1);
+  useEffect(() => {
+    if (peliAlkaa && kayttajanVuoro === false) {
+      const timer = setTimeout(() => {
+        vastustajanVuoroKasittely();
+      }, 1000);
+      return () => clearTimeout(timer);
     }
-  };
+  }, [kayttajanVuoro, peliAlkaa]);
 
-  const handleComputerCellClick = (row, col) => {
-    // Ignore clicks if it's not the computer's turn or if the cell has already been clicked
-    if (!playerTurn || computerBoard[row][col] !== 0) {
+  const pelaajanKlikkausKasittely = (rivi, sarake) => {
+    if (peliAlkaa || kayttajanVuoro || sijoitetutLaivat >= 5) {
       return;
     }
 
-    // Implement here the logic to handle the computer's turn
-    // For now, let's just toggle the cell value for testing purposes
-    const updatedBoard = [...computerBoard];
-    updatedBoard[row][col] = updatedBoard[row][col] === 0 ? -1 : 0; // Toggle cell value
-    setComputerBoard(updatedBoard);
+    const paivitaTaulukko = [...pelaajanTaulukko];
+    if (paivitaTaulukko[rivi][sarake] === 0) {
+      paivitaTaulukko[rivi][sarake] = 1;
+      setSijoitetutLaivat(sijoitetutLaivat + 1);
+    }
+    setKayttajanTaulukko(paivitaTaulukko);
 
-    // Now it's player's turn again
-    setPlayerTurn(false);
+    if (sijoitetutLaivat === 4) {
+      setPeliAlkaa(true);
+      setKayttajanVuoro(true);
+    }
   };
 
-  const startGame = () => {
-    setGameStarted(true);
-    setPlayerTurn(true);
+  const ruudunKlikkausKasittely = (rivi, sarake) => {
+    if (!peliAlkaa || !kayttajanVuoro) {
+      return;
+    }
+
+    const paivitaTaulukko = [...vastustajanTaulukko];
+    if (paivitaTaulukko[rivi][sarake] === 0) {
+      const satunnaisRivi = Math.floor(Math.random() * taulukkoRivit);
+      const satunnaisSarake = Math.floor(Math.random() * taulukkoSarakkeet);
+      if (pelaajanTaulukko[satunnaisRivi][satunnaisSarake] === 1) {
+        paivitaTaulukko[rivi][sarake] = -1;
+      } else {
+        paivitaTaulukko[rivi][sarake] = 2;
+      }
+      setVastustajanTaulukko(paivitaTaulukko);
+      setKayttajanVuoro(false);
+    }
   };
+
+  const vastustajanVuoroKasittely = () => {
+    const paivitaTaulukko = [...pelaajanTaulukko];
+    let satunnaisRivi, satunnaisSarake;
+    do {
+      satunnaisRivi = Math.floor(Math.random() * taulukkoRivit);
+      satunnaisSarake = Math.floor(Math.random() * taulukkoSarakkeet);
+    } while (
+      paivitaTaulukko[satunnaisRivi][satunnaisSarake] !== 0 &&
+      paivitaTaulukko[satunnaisRivi][satunnaisSarake] !== 1
+    );
+
+    if (paivitaTaulukko[satunnaisRivi][satunnaisSarake] === 1) {
+      paivitaTaulukko[satunnaisRivi][satunnaisSarake] = -1;
+    } else {
+      paivitaTaulukko[satunnaisRivi][satunnaisSarake] = 2;
+    }
+    setKayttajanTaulukko(paivitaTaulukko);
+    setKayttajanVuoro(true);
+  };
+
+  useEffect(() => {
+    if (peliAlkaa && !kayttajanVuoro) {
+      const kayttajanTaulukonKopio = [...pelaajanTaulukko];
+      let kayttajanVuoronKopio = false;
+      for (let i = 0; i < taulukkoRivit; i++) {
+        for (let j = 0; j < taulukkoSarakkeet; j++) {
+          if (
+            kayttajanTaulukonKopio[i][j] === 1 &&
+            vastustajanTaulukko[i][j] === -1
+          ) {
+            kayttajanTaulukonKopio[i][j] = 3;
+            kayttajanVuoronKopio = true;
+          }
+        }
+      }
+      setKayttajanTaulukko(kayttajanTaulukonKopio);
+      setKayttajanVuoro(kayttajanVuoronKopio);
+    }
+  }, [kayttajanVuoro, peliAlkaa]);
 
   return (
-    <div className="game-container">
-      <div className="board">
-        <div className="player-board">
-          {playerBoard.map((row, rowIndex) =>
-            row.map((cell, colIndex) => (
-              <Cell
-                key={`player-${rowIndex}-${colIndex}`}
-                value={cell}
-                onClick={() => handlePlayerCellClick(rowIndex, colIndex)}
-                color={cell === 1 ? "green" : cell === -1 ? "red" : "blue"}
+    <div className="peliAlusta">
+      <div className="taulukko">
+        <div className="kayttajanTaulukko">
+          {pelaajanTaulukko.map((rivi, riviPaikka) =>
+            rivi.map((ruutu, sarakePaikka) => (
+              <Ruutu
+                key={`käyttäjä-${riviPaikka}-${sarakePaikka}`}
+                value={ruutu}
+                onClick={() =>
+                  pelaajanKlikkausKasittely(riviPaikka, sarakePaikka)
+                }
+                color={
+                  ruutu === -1
+                    ? "red"
+                    : ruutu === 2
+                    ? "gray"
+                    : ruutu === 3
+                    ? "red"
+                    : "blue"
+                }
               />
             ))
           )}
         </div>
-        <div className="computer-board">
-          {gameStarted &&
-            computerBoard.map((row, rowIndex) =>
-              row.map((cell, colIndex) => (
-                <Cell
-                  key={`computer-${rowIndex}-${colIndex}`}
-                  value={cell}
-                  onClick={() => handleComputerCellClick(rowIndex, colIndex)}
-                  color={cell === -1 ? "red" : cell === 1 ? "green" : "orange"}
+        <div className="vastustajanTaulukko">
+          {peliAlkaa &&
+            vastustajanTaulukko.map((rivi, riviPaikka) =>
+              rivi.map((ruutu, sarakePaikka) => (
+                <Ruutu
+                  key={`vastustaja-${riviPaikka}-${sarakePaikka}`}
+                  value={ruutu}
+                  onClick={() =>
+                    ruudunKlikkausKasittely(riviPaikka, sarakePaikka)
+                  }
+                  color={ruutu === -1 ? "red" : ruutu === 2 ? "gray" : "orange"}
                 />
               ))
             )}
         </div>
       </div>
-      {!gameStarted && remainingPlayerShips === 0 && (
-        <button onClick={startGame}>Aloita peli, laivat sijoitettu</button>
-      )}
+      {peliAlkaa && !kayttajanVuoro && <div>Vastustajan vuoro</div>}
     </div>
   );
 };
 
-export default BattleshipGame;
+export default Laivanupotus;

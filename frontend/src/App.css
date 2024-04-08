@@ -17,28 +17,28 @@
   color: #61dafb;
 }
 
-.game-container {
+.peliAlusta {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100 vh;
 }
 
-.board {
+.taulukko {
   display: flex;
   margin: auto;
 }
 
-.player-board,
-.computer-board {
+.kayttajanTaulukko,
+.vastustajanTaulukko {
   display: grid;
-  grid-template-columns: repeat(5, 70px); /* 5 solua per rivi */
-  grid-template-rows: repeat(4, 70px); /* 4 riviä */
-  gap: 10px; /* väli solujen välillä */
+  grid-template-columns: repeat(5, 70px);
+  grid-template-rows: repeat(4, 70px);
+  gap: 10px;
   margin-right: 20px;
 }
 
-.cell {
+.ruutu {
   width: 50px;
   height: 50px;
   border: 2px solid black;

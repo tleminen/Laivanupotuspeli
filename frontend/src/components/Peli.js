@@ -34,102 +34,54 @@ const Cell = ({ value, onClick, color }) => {
 const BattleshipGame = () => {
   const [playerBoard, setPlayerBoard] = useState(initializeBoard());
   const [computerBoard, setComputerBoard] = useState(initializeBoard());
-  const [currentPlayer, setCurrentPlayer] = useState("player");
-  const [playerShipsPlaced, setPlayerShipsPlaced] = useState(false);
-  const [remainingShips, setRemainingShips] = useState(5);
+  const [remainingPlayerShips, setRemainingPlayerShips] = useState(5);
   const [playerTurn, setPlayerTurn] = useState(true);
 
-  const handleCellClick = (row, col) => {
-    if (currentPlayer === "player" && playerTurn) {
-      if (
-        !playerShipsPlaced &&
-        remainingShips > 0 &&
-        playerBoard[row][col] !== 1
-      ) {
-        const updatedBoard = [...playerBoard];
-        updatedBoard[row][col] = 1; // Player's ships are represented by 1
-        setPlayerBoard(updatedBoard);
-        setRemainingShips(remainingShips - 1);
-      } else if (playerShipsPlaced && computerBoard[row][col] === 1) {
-        const updatedBoard = [...computerBoard];
-        updatedBoard[row][col] = -1; // Player hit opponent's ship
-        setComputerBoard(updatedBoard);
-        checkWinCondition(updatedBoard, "player");
-        setPlayerTurn(false); // End player's turn
-      } else if (playerShipsPlaced && computerBoard[row][col] === 0) {
-        const updatedBoard = [...computerBoard];
-        updatedBoard[row][col] = -1; // Player missed
-        setComputerBoard(updatedBoard);
-        setPlayerTurn(false); // End player's turn
-      }
+  const handlePlayerCellClick = (row, col) => {
+    if (remainingPlayerShips > 0 && playerBoard[row][col] !== 1) {
+      const updatedBoard = [...playerBoard];
+      updatedBoard[row][col] = 1; // Player's ships are represented by 1
+      setPlayerBoard(updatedBoard);
+      setRemainingPlayerShips(remainingPlayerShips - 1);
     }
   };
 
-  const handleDonePlacingShips = () => {
-    if (remainingShips === 0) {
-      setPlayerShipsPlaced(true);
-      setCurrentPlayer("computer");
-      // Now it's the computer's turn to place ships
-      const computerBoardWithShips = placeShipsRandomly();
-      setComputerBoard(computerBoardWithShips);
-    } else {
-      alert("You must place all 5 ships before continuing!");
-    }
-  };
-
-  const placeShipsRandomly = () => {
-    const board = initializeBoard();
-    for (let i = 0; i < 3; i++) {
-      let row, col;
-      do {
-        row = getRandomInt(BOARD_ROWS);
-        col = getRandomInt(BOARD_COLS);
-      } while (board[row][col] !== 0);
-      board[row][col] = 1;
-    }
-    return board;
+  const handleComputerCellClick = () => {
+    // Implement computer's turn here (random cell selection)
   };
 
   const getRandomInt = (max) => {
     return Math.floor(Math.random() * Math.floor(max));
   };
 
-  const checkWinCondition = (board, player) => {
-    const flattenedBoard = board.flat();
-    if (!flattenedBoard.includes(1)) {
-      alert(`Player ${player} wins!`);
-    }
-  };
-
   return (
     <div className="game-container">
       <div className="board">
-        {currentPlayer === "player" &&
-          playerBoard.map((row, rowIndex) =>
+        <div className="player-board">
+          {playerBoard.map((row, rowIndex) =>
             row.map((cell, colIndex) => (
               <Cell
                 key={`${rowIndex}-${colIndex}`}
                 value={cell}
-                onClick={() => handleCellClick(rowIndex, colIndex)}
-                color={cell === 1 ? "green" : "blue"}
+                onClick={() => handlePlayerCellClick(rowIndex, colIndex)}
+                color={cell === 1 ? "green" : cell === -1 ? "red" : "blue"}
               />
             ))
           )}
-        {currentPlayer === "computer" &&
-          computerBoard.map((row, rowIndex) =>
+        </div>
+        <div className="computer-board">
+          {computerBoard.map((row, rowIndex) =>
             row.map((cell, colIndex) => (
               <Cell
                 key={`${rowIndex}-${colIndex}`}
                 value={cell}
-                onClick={() => handleCellClick(rowIndex, colIndex)}
-                color={cell === -1 ? "red" : "orange"}
+                onClick={() => handleComputerCellClick(rowIndex, colIndex)}
+                color={cell === -1 ? "red" : cell === 1 ? "green" : "orange"}
               />
             ))
           )}
+        </div>
       </div>
-      {!playerShipsPlaced && (
-        <button onClick={handleDonePlacingShips}>Done placing ships</button>
-      )}
     </div>
   );
 };

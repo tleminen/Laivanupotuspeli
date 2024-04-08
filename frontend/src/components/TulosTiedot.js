@@ -4,14 +4,14 @@ import { useState, useContext } from "react";
 import kayttajaContext from "../context/KayttajaContext";
 import { useNavigate } from "react-router-dom";
 import { Button } from "bootstrap";
-const Kayttaja = (props) => {
-  let history = useNavigate();
+const TulosTiedot = (props) => {
   const [naytaKayttaja, setNaytaKayttaja] = useState(false);
+  let history = useNavigate();
   const onShowClick = (e) => {
     let lippu = !naytaKayttaja;
     setNaytaKayttaja(lippu);
   };
-  const { Kayttajatunus, Pisteet} = props.Kayttaja || {};
+  const { Kayttajatunus, Pisteet } = props.kayttaja || {};
   return (
     <div className="card card-body bg-light mb-3">
       <h4 className="text-dark">
@@ -36,4 +36,4 @@ const Kayttaja = (props) => {
  yhteystieto: PropTypes.object.isRequired,
  //deleteClickHandler: PropTypes.func.isRequired,//ei tarvita enää
 };*/
-export default Kayttaja;
+export default TulosTiedot;

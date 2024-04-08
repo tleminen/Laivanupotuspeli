@@ -7,31 +7,27 @@ const Tulos = () => {
   const KayttajaContext = useContext(kayttajaContext);
   console.log(KayttajaContext);
   useEffect(() => {
-    KayttajaContext.getKayttajat();
-
-    console.log(KayttajaContext);
+    KayttajaContext.getKayttajat().then(() => {
+        console.log("Käyttäjät haettu onnistuneesti");
+      }).catch((error) => {
+        console.error("Virhe käyttäjätietojen haussa:", error);
+      });
   }, []);
 
-  if (KayttajaContext) {
-    return (
-      <>
-        <h1 className="display-4 mb-2">
-          <span className="header">Tulokset</span>
-        </h1>
-
-        <React.Fragment>
-          {KayttajaContext.kayttajantiedot
-            ? KayttajaContext.kayttajantiedot.map((kayttajanTieto) => (
-                <TulosTiedot
-                  key={kayttajanTieto && kayttajanTieto.id}
-                  kayttajanTieto={kayttajanTieto}
-                />
-              ))
-            : null}
-        </React.Fragment>
-      </>
-    );
-  } else return null;
+  return (
+    <>
+      <h1 className="display-4 mb-2">
+        <span className="header">Urheilijat</span>
+      </h1>
+      <React.Fragment>
+        {KayttajaContext.kayttajat.length
+          ? KayttajaContext.kayttajat.map((kayttaja) => (
+              <TulosTiedot key={kayttaja && kayttaja.id} kayttaja={kayttaja} />
+            ))
+          : null}
+      </React.Fragment>
+    </>
+  );
 };
 
 export default Tulos;

@@ -13,6 +13,7 @@ const GlobalState = (props) => {
     try {
       let res = await axios.get("http://localhost:3000/laivanupotus");
       let { data } = res;
+      console.log("Saadut käyttäjätiedot:", data.posts);
       dispatch({ type: GET_KAYTTAJAT, payload: data.posts });
     } catch (error) {
       alert(error);

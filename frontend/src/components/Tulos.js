@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import TulosTiedot from "./TulosTiedot";
 import kayttajaContext from "../context/KayttajaContext";
+import React from "react";
 
 const KaikkiTulokset = () => {
   const KayttajaContext = useContext(kayttajaContext);

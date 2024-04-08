@@ -4,14 +4,15 @@ import { useState, useContext } from "react";
 import kayttajaContext from "../context/KayttajaContext";
 import { useNavigate } from "react-router-dom";
 import { Button } from "bootstrap";
-const TulosTiedot = (props) => {
+const TulosTiedot = ({ kayttaja }) => {
+  console.log("TulosTiedot props:", kayttaja);
   const [naytaKayttaja, setNaytaKayttaja] = useState(false);
   let history = useNavigate();
   const onShowClick = (e) => {
     let lippu = !naytaKayttaja;
     setNaytaKayttaja(lippu);
   };
-  const { Kayttajatunus, Pisteet } = props.kayttaja || {};
+  const { Kayttajatunus, Salasana, Pisteet } = kayttaja || {};
   return (
     <div className="card card-body bg-light mb-3">
       <h4 className="text-dark">

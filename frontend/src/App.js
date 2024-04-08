@@ -2,6 +2,7 @@ import "./App.css";
 import Kirjautuminen from "./components/Kirjautuminen";
 import Rekisteroityminen from "./components/Rekisteroityminen";
 import Peli from "./components/Peli";
+import Tulos from "./components/Tulos";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import GlobalState from "./context/GlobalState";
 import React from "react";
@@ -27,6 +28,8 @@ function App() {
                 element={<Rekisteroityminen />}
               />{" "}
               <Route path="/laivanupotus/peli" element={<Peli />} />{" "}
+              
+              <Route path="/laivanupotus/" element={<Tulos />} />{" "}
             </Routes>{" "}
           </div>{" "}
         </div>{" "}

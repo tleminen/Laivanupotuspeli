@@ -82,12 +82,9 @@
 .punainen {
   color: rgb(239, 103, 44);
   font-weight: bolder;
+  list-style-type: none;
 }
 
-.space {
-  margin-bottom: 5px;
-  text-align: center;
-}
 
 .kuvanKoko {
   width: 350px;

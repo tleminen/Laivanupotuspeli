@@ -110,8 +110,9 @@ const Kirjautuminen = () => {
                 Kirjaudu sisään
               </button>
             </div>
+            <br></br>
           </form>
-            <li>
+            <li className="punainen">
               <Link to="/laivanupotus/rekisterointi" className="punainen">Luo uusi käyttäjä?
               </Link>
             </li>

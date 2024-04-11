@@ -82,7 +82,7 @@ const Kirjautuminen = () => {
               <input
                 type="text"
                 id="username"
-                class="space"
+                className="space"
                 placeholder="Syötä käyttäjätunnus"
                 ref={userRef}
                 autoComplete="off"
@@ -95,7 +95,7 @@ const Kirjautuminen = () => {
               <input
                 type="password"
                 id="password"
-                class="space"
+                className="space"
                 placeholder="Syötä salasana"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}

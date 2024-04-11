@@ -85,7 +85,6 @@
   list-style-type: none;
 }
 
-
 .kuvanKoko {
   width: 350px;
   height: 250px;
@@ -101,7 +100,31 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-image: url("../src/image/background.png"); /* Lisää kuva taustakuvaksi */
-  background-size: cover; /* Aseta taustakuva täyttämään koko elementin */
-  background-position: center; /* Aseta taustakuvan keskelle */
+  background-image: url("../src/image/background.png");
+  background-size: cover;
+  background-position: center;
+}
+
+.tulosBoksi {
+  background-color: #ff6e304b;
+  border: 2px solid #ff6e304b;
+  padding: 5px;
+  border-radius: 5px;
+  max-height: 300px;
+  overflow: auto;
+}
+::-webkit-scrollbar {
+  width: 12px; /* Aseta vierityspalkin leveys */
+}
+::-webkit-scrollbar-thumb {
+  background-color: #ff6e30ad; /* Aseta vierityspalkin väri */
+  border-radius: 6px; /* Pyöristä vierityspalkin reunat */
+}
+
+::-webkit-scrollbar-track {
+  background-color: #ff6e3018; /* Aseta vierityspalkin reuna-alueen väri */
+}
+.tulosTeksti {
+  color: white;
+  font-size: 20px;
 }

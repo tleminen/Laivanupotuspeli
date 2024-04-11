@@ -1,36 +1,17 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { useState, useContext } from "react";
-import kayttajaContext from "../context/KayttajaContext";
 import { useNavigate } from "react-router-dom";
-import { Button } from "bootstrap";
 const TulosTiedot = ({ kayttaja }) => {
   console.log("TulosTiedot props:", kayttaja);
-  const [naytaKayttaja, setNaytaKayttaja] = useState(false);
   let history = useNavigate();
-  const onShowClick = (e) => {
-    let lippu = !naytaKayttaja;
-    setNaytaKayttaja(lippu);
-  };
-  const { Kayttajatunus, Salasana, Pisteet } = kayttaja || {};
+  const { Kayttajatunnus, Pisteet } = kayttaja || {};
   return (
-    <div className="card card-body bg-light mb-3">
-      <h4 className="text-dark">
-        {Kayttajatunus}{" "}
-        <Button variant="outline-dark" onClick={onShowClick.bind(this)}>
-          Lisätietoa
-        </Button>
-        <Link to={`/laivanupotus/peli`}>
-          <Button variant="outline-primary">Pelaa uudestaan</Button>
-        </Link>
-      </h4>
-      {naytaKayttaja ? (
-        <ul className="list-group">
-          <li className="list-group-item">Nimi: {Kayttajatunus}</li>
-          <li className="list-group-item">Pisteet: {Pisteet}</li>
-        </ul>
-      ) : null}
+    <div>
+        <h1 className="tulosTeksti">
+        {Kayttajatunnus} pst: {Pisteet}
+        </h1>
     </div>
+    
+    
   );
 };
 /*Puhelintieto.propTypes = {

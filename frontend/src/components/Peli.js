@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import kuva from "../image/SijoitusLaiva.png";
+import kuva2 from "../image/osumaKuva.png";
 
 const taulukkoRivit = 4;
 const taulukkoSarakkeet = 5;
@@ -29,7 +30,15 @@ const Ruutu = ({ value, onClick, color }) => {
   }
   return (
     <div className="ruutu" onClick={onClick} style={{ backgroundColor: color }}>
-      {sisalto}
+      {value === -1 ? (
+        <img
+          src={kuva2}
+          alt="osuma"
+          style={{ width: "50px", height: "50px" }}
+        />
+      ) : (
+        sisalto
+      )}
     </div>
   );
 };

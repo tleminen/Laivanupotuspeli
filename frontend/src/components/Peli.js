@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import kuva from "../image/SijoitusLaiva.png";
 
 const taulukkoRivit = 4;
 const taulukkoSarakkeet = 5;
@@ -12,7 +13,9 @@ const toteutaTaulukko = () => {
 };
 
 const Laiva = () => {
-  return <div className="laiva" />;
+  return (
+    <img src={kuva} alt="laiva" style={{ width: "50px", height: "50px" }} />
+  );
 };
 
 const Ruutu = ({ value, onClick, color }) => {

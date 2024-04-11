@@ -80,3 +80,9 @@
   margin-bottom: 5px;
   text-align: center;
 }
+
+.kuvanKoko {
+  width: 350px;
+  height: 250px;
+  align-content:end;
+}

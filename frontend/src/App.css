@@ -80,7 +80,7 @@
 }
 
 .punainen {
-  color: darkred;
+  color: rgb(239, 103, 44);
   font-weight: bolder;
 }
 
@@ -92,7 +92,6 @@
 .kuvanKoko {
   width: 350px;
   height: 250px;
-  text-align: center;
   margin-left: 5%;
 }
 

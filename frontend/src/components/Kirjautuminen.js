@@ -77,12 +77,13 @@ const Kirjautuminen = () => {
             {errorMessage}
           </p>
           <img src={kuva} alt="Kirjautuminen Laivanupotuspeliin" className="kuvanKoko" />
+          
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <input
                 type="text"
                 id="username"
-                className="space"
+                className="form-control form-control-lg"
                 placeholder="Syötä käyttäjätunnus"
                 ref={userRef}
                 autoComplete="off"
@@ -91,30 +92,29 @@ const Kirjautuminen = () => {
                 required
               />
             </div>
+            <br></br>
             <div className="form-group">
               <input
                 type="password"
                 id="password"
-                className="space"
+                className="form-control form-control-lg"
                 placeholder="Syötä salasana"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
                 required
               />
             </div>
+            <br></br>
             <div className="form-group">
-              <button className="btn btn-primary rounded-circle">
+              <button className="btn btn-primary rounded-circle btn-lg">
                 Kirjaudu sisään
               </button>
             </div>
           </form>
-          <p>
-            <li className="nav-item">
-              <Link to="/laivanupotus/rekisterointi" className="punainen">
-                Luo uusi käyttäjä?
+            <li>
+              <Link to="/laivanupotus/rekisterointi" className="punainen">Luo uusi käyttäjä?
               </Link>
             </li>
-          </p>
         </section>
       )}
     </>

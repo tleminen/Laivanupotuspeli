@@ -171,7 +171,6 @@ const Laivanupotus = () => {
               )}
           </div>
         </div>
-        {peliAlkaa && !kayttajanVuoro && <div>Vastustajan vuoro</div>}
       </div>
     </div>
   );

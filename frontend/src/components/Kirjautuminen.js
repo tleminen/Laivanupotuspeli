@@ -2,8 +2,8 @@ import ContextKayttaja from "../context/KayttajaContext";
 import { useRef, useState, useEffect, useContext } from "react";
 import AuthContext from "../context/AuthProvider";
 import { Link } from "react-router-dom";
-import kuva from "../../public/image/"
-const LOGIN_URL = '/auth';
+import kuva from "../../public/image/";
+const LOGIN_URL = "/auth";
 
 const Kirjautuminen = () => {
   const { setAuth } = useContext(AuthContext);
@@ -32,7 +32,7 @@ const Kirjautuminen = () => {
 
       console.log(JSON.stringify(response?.data));
       console.log(JSON.stringify(response));
-      
+
       const accessToken = response?.data?.accessToken;
       const roles = response?.data?.roles;
       setAuth({ user, password, roles, accessToken });
@@ -60,7 +60,11 @@ const Kirjautuminen = () => {
           <h1 className="header">Olet kirjautunut sisään</h1>
           <br />
           <span className="line">
-          <Link to="/laivanupotus/peli/"><button className='btn btn-primary rounded-circle btn-lg'>Aloita peli</button></Link>
+            <Link to="/laivanupotus/peli/">
+              <button className="btn btn-primary rounded-circle btn-lg">
+                Aloita peli
+              </button>
+            </Link>
           </span>
         </section>
       ) : (
@@ -72,39 +76,42 @@ const Kirjautuminen = () => {
           >
             {errorMessage}
           </p>
-          <img src={kuva} alt="Kirjautuminen Laivanupotuspeliin"/>
+          <img src={kuva} alt="Kirjautuminen Laivanupotuspeliin" />
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-            <input
-              type="text"
-              id="username"
-              class="space"
-              placeholder="Syötä käyttäjätunnus"
-              ref={userRef}
-              autoComplete="off"
-              onChange={(e) => setUser(e.target.value)}
-              value={user}
-              required
-            />
+              <input
+                type="text"
+                id="username"
+                class="space"
+                placeholder="Syötä käyttäjätunnus"
+                ref={userRef}
+                autoComplete="off"
+                onChange={(e) => setUser(e.target.value)}
+                value={user}
+                required
+              />
             </div>
             <div className="form-group">
-            <input
-              type="password"
-              id="password"
-              class="space"
-              placeholder="Syötä salasana"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-              required
-            />
+              <input
+                type="password"
+                id="password"
+                class="space"
+                placeholder="Syötä salasana"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                required
+              />
             </div>
             <div className="form-group">
-            <button className='btn btn-primary rounded-circle'>Kirjaudu sisään</button>
+              <button className="btn btn-primary rounded-circle">
+                Kirjaudu sisään
+              </button>
             </div>
           </form>
           <p>
-          <li className="nav-item">
-              <Link to="/laivanupotus/rekisterointi" className="punainen">Luo uusi käyttäjä?
+            <li className="nav-item">
+              <Link to="/laivanupotus/rekisterointi" className="punainen">
+                Luo uusi käyttäjä?
               </Link>
             </li>
           </p>

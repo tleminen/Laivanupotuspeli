@@ -2,6 +2,7 @@ import ContextKayttaja from "../context/KayttajaContext";
 import { useRef, useState, useEffect, useContext } from "react";
 import AuthContext from "../context/AuthProvider";
 import { Link } from "react-router-dom";
+import kuva from "../../public/image/"
 const LOGIN_URL = '/auth';
 
 const Kirjautuminen = () => {
@@ -71,7 +72,7 @@ const Kirjautuminen = () => {
           >
             {errorMessage}
           </p>
-          <h1 className="header">Kirjautuminen laivanupotuspeliin</h1>
+          <img src={kuva} alt="Kirjautuminen Laivanupotuspeliin"/>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
             <input

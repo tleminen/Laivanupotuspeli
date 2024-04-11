@@ -46,7 +46,7 @@ const LisaaKayttaja = () => {
             <div className="card-body">
                 <form onSubmit={handleSubmit.bind(this)}> 
                 <div className="form-group">
-                    <label htmlFor="Kayttajatunnus">Käyttäjätunnus</label> 
+                    <label htmlFor="Kayttajatunnus" className="teksti">Käyttäjätunnus</label> 
                     <input
                     id="Kayttajatunnus"
                     type="text"
@@ -61,12 +61,12 @@ const LisaaKayttaja = () => {
                     
                     </div>
                     <div className="form-group">
-                    <label htmlFor="Salasana">Salasana</label> 
+                    <label htmlFor="Salasana" className="teksti">Salasana</label> 
                     <input
                     id="Salasana"
                     type="text"
                     name="Salasana"
-                    className="form-control form-control-lg" 
+                    className="form-control form-control-lg"
                     placeholder="Syötä salasana..."
                     value={Salasana}
                     onChange={(event) => setSalasana(event.target.value)} 
@@ -75,6 +75,7 @@ const LisaaKayttaja = () => {
 
             
                     </div>
+                    <br></br>
                     <input
                         type="submit"
                         value="Rekisteröidy" 

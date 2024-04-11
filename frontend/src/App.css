@@ -92,5 +92,20 @@
 .kuvanKoko {
   width: 350px;
   height: 250px;
-  align-content: end;
+  text-align: center;
+  margin-left: 5%;
+}
+
+.teksti {
+  color: rgb(239, 103, 44);
+}
+
+.taustaKuva {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url("../src/image/background.png"); /* Lisää kuva taustakuvaksi */
+  background-size: cover; /* Aseta taustakuva täyttämään koko elementin */
+  background-position: center; /* Aseta taustakuvan keskelle */
 }

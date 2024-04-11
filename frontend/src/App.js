@@ -12,7 +12,7 @@ function App() {
   return (
     
     <GlobalState>
-      <div className="background">
+      <div className="taustaKuva">
       {" "}
       <Router>
         {" "}

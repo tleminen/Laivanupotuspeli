@@ -75,7 +75,7 @@
 .header {
   font-family: Georgia, "Times New Roman", Times, serif;
   font-weight: bold;
-  color: darkslateblue;
+  color: rgb(239, 103, 44);
 }
 
 .punainen {
@@ -91,5 +91,16 @@
 .kuvanKoko {
   width: 350px;
   height: 250px;
-  align-content:end;
+  text-align: center;
+  margin-left: 5%;
+}
+
+.taustaKuva {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url('../src/image/background.png'); 
+  background-size: cover;
+  background-position: center;
 }

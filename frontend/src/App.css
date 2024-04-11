@@ -21,32 +21,39 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100 vh;
+  height: 100vh;
+}
+
+.peliruudukot {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 600px;
+}
+
+.vali {
+  width: 200px;
 }
 
 .taulukko {
   display: flex;
-  margin: auto;
 }
 
 .kayttajanTaulukko,
 .vastustajanTaulukko {
   display: grid;
-  grid-template-columns: repeat(5, 70px);
-  grid-template-rows: repeat(4, 70px);
-  gap: 10px;
-  margin-right: 20px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 5px;
 }
 
 .ruutu {
   width: 50px;
   height: 50px;
-  border: 2px solid black;
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 1px solid #7c7373;
   cursor: pointer;
-  font-size: 24px;
 }
 
 .laiva {

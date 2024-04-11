@@ -128,46 +128,51 @@ const Laivanupotus = () => {
 
   return (
     <div className="peliAlusta">
-      <div className="taulukko">
-        <div className="kayttajanTaulukko">
-          {pelaajanTaulukko.map((rivi, riviPaikka) =>
-            rivi.map((ruutu, sarakePaikka) => (
-              <Ruutu
-                key={`käyttäjä-${riviPaikka}-${sarakePaikka}`}
-                value={ruutu}
-                onClick={() =>
-                  pelaajanKlikkausKasittely(riviPaikka, sarakePaikka)
-                }
-                color={
-                  ruutu === -1
-                    ? "red"
-                    : ruutu === 2
-                    ? "gray"
-                    : ruutu === 3
-                    ? "red"
-                    : "blue"
-                }
-              />
-            ))
-          )}
-        </div>
-        <div className="vastustajanTaulukko">
-          {peliAlkaa &&
-            vastustajanTaulukko.map((rivi, riviPaikka) =>
+      <div className="peliruudukot">
+        <div className="taulukko">
+          <div className="kayttajanTaulukko">
+            {pelaajanTaulukko.map((rivi, riviPaikka) =>
               rivi.map((ruutu, sarakePaikka) => (
                 <Ruutu
-                  key={`vastustaja-${riviPaikka}-${sarakePaikka}`}
+                  key={`käyttäjä-${riviPaikka}-${sarakePaikka}`}
                   value={ruutu}
                   onClick={() =>
-                    ruudunKlikkausKasittely(riviPaikka, sarakePaikka)
+                    pelaajanKlikkausKasittely(riviPaikka, sarakePaikka)
                   }
-                  color={ruutu === -1 ? "red" : ruutu === 2 ? "gray" : "orange"}
+                  color={
+                    ruutu === -1
+                      ? "red"
+                      : ruutu === 2
+                      ? "gray"
+                      : ruutu === 3
+                      ? "red"
+                      : "blue"
+                  }
                 />
               ))
             )}
+          </div>
+          <div className="vali" />
+          <div className="vastustajanTaulukko">
+            {peliAlkaa &&
+              vastustajanTaulukko.map((rivi, riviPaikka) =>
+                rivi.map((ruutu, sarakePaikka) => (
+                  <Ruutu
+                    key={`vastustaja-${riviPaikka}-${sarakePaikka}`}
+                    value={ruutu}
+                    onClick={() =>
+                      ruudunKlikkausKasittely(riviPaikka, sarakePaikka)
+                    }
+                    color={
+                      ruutu === -1 ? "red" : ruutu === 2 ? "gray" : "orange"
+                    }
+                  />
+                ))
+              )}
+          </div>
         </div>
+        {peliAlkaa && !kayttajanVuoro && <div>Vastustajan vuoro</div>}
       </div>
-      {peliAlkaa && !kayttajanVuoro && <div>Vastustajan vuoro</div>}
     </div>
   );
 };

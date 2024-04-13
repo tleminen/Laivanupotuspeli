@@ -28,11 +28,11 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 600px;
+  width: 80%;
 }
 
 .vali {
-  width: 200px;
+  width: 100px;
 }
 
 .taulukko {
@@ -43,7 +43,7 @@
 .vastustajanTaulukko {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 50px;
+  gap: 10px;
 }
 
 .ruutu {

@@ -1,7 +1,7 @@
 import React, { Component, useContext, useEffect } from "react";
 import TulosTiedot from "./TulosTiedot";
 import kayttajaContext from "../context/KayttajaContext";
-import Button from 'react-bootstrap/Button';
+import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 
 const Tulos = () => {
@@ -9,12 +9,13 @@ const Tulos = () => {
   console.log("Käyttäjät: ", KayttajaContext.kayttajat);
 
   useEffect(() => {
-    KayttajaContext.getKayttajat()
-        console.log("Käyttäjät haettu onnistuneesti"+KayttajaContext.getKayttajat());
+    KayttajaContext.getKayttajat();
+    console.log(
+      "Käyttäjät haettu onnistuneesti" + KayttajaContext.getKayttajat()
+    );
   }, []);
-  
 
-  console.log("ennen return: "+KayttajaContext.kayttajat)
+  console.log("ennen return: " + KayttajaContext.kayttajat);
 
   return (
     <>
@@ -23,21 +24,23 @@ const Tulos = () => {
       </h1>
       <React.Fragment>
         <div className="tulosBoksi">
-
-        {KayttajaContext.kayttajat.length
-          ? KayttajaContext.kayttajat.map((kayttaja) => (
-              <TulosTiedot key={kayttaja && kayttaja.id} kayttaja={kayttaja} />
-            ))
-          : null}
-          </div>
-          <div>
+          {KayttajaContext.kayttajat.length
+            ? KayttajaContext.kayttajat.map((kayttaja) => (
+                <TulosTiedot
+                  key={kayttaja && kayttaja.id}
+                  kayttaja={kayttaja}
+                />
+              ))
+            : null}
+        </div>
+        <div>
           <Link to={`/`}>
-          <Button variant="outline-danger">Kirjaudu ulos</Button>
+            <Button variant="outline-danger">Kirjaudu ulos</Button>
           </Link>
           <Link to={`/laivanupotus/peli`}>
-          <Button variant="outline-success">Pelaa uudelleen</Button>
+            <Button variant="outline-success">Pelaa uudelleen</Button>
           </Link>
-          </div>
+        </div>
       </React.Fragment>
     </>
   );

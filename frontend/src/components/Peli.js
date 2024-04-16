@@ -51,6 +51,14 @@ const Laivanupotus = () => {
   const [kayttajanVuoro, setKayttajanVuoro] = useState(false);
   const [peliAlkaa, setPeliAlkaa] = useState(false);
   const [sijoitetutLaivat, setSijoitetutLaivat] = useState(0);
+  const [peliPaattynyt, setPeliPaattynyt] = useState(false);
+
+  useEffect(() => {
+    if (peliPaattynyt) {
+      // pelin lopetustoiminnot tähän vielä
+      console.log("Peli päättyi");
+    }
+  }, [peliPaattynyt]);
 
   useEffect(() => {
     if (peliAlkaa && kayttajanVuoro === false) {
@@ -119,24 +127,31 @@ const Laivanupotus = () => {
   };
 
   useEffect(() => {
-    if (peliAlkaa && !kayttajanVuoro) {
-      const kayttajanTaulukonKopio = [...pelaajanTaulukko];
-      let kayttajanVuoronKopio = false;
-      for (let i = 0; i < taulukkoRivit; i++) {
-        for (let j = 0; j < taulukkoSarakkeet; j++) {
-          if (
-            kayttajanTaulukonKopio[i][j] === 1 &&
-            vastustajanTaulukko[i][j] === -1
-          ) {
-            kayttajanTaulukonKopio[i][j] = 3;
-            kayttajanVuoronKopio = true;
+    const tarkistaVoitto = (taulukko) => {
+      let upotetut = 0;
+      for (let i = 0; i < taulukko.length; i++) {
+        for (let j = 0; j < taulukko[i].length; j++) {
+          if (taulukko[i][j] === -1) {
+            upotetut++;
           }
         }
       }
-      setKayttajanTaulukko(kayttajanTaulukonKopio);
-      setKayttajanVuoro(kayttajanVuoronKopio);
+      return upotetut === 5;
+    };
+
+    if (peliAlkaa) {
+      const pelaajanVoitto = tarkistaVoitto(vastustajanTaulukko);
+      const vastustajanVoitto = tarkistaVoitto(pelaajanTaulukko);
+
+      if (pelaajanVoitto || vastustajanVoitto) {
+        setPeliPaattynyt(true);
+      }
     }
-  }, [kayttajanVuoro, peliAlkaa]);
+  }, [peliAlkaa, pelaajanTaulukko, vastustajanTaulukko]);
+
+  const kasitteleSiirtyminenTuloksiin = () => {
+    setPeliPaattynyt(true);
+  };
 
   return (
     <div className="peliAlusta">
@@ -184,6 +199,11 @@ const Laivanupotus = () => {
           </div>
         </div>
       </div>
+      {peliPaattynyt && (
+        <button onClick={kasitteleSiirtyminenTuloksiin}>
+          Siirry tulosnäkymään
+        </button>
+      )}
     </div>
   );
 };

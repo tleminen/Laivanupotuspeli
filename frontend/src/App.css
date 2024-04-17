@@ -18,11 +18,13 @@
 }
 
 .peliAlusta {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin-top: 40%;
   height: 100vh;
   margin-right: 80%;
+}
+
+.TulosSiirtyma {
+  padding: 40px;
 }
 
 .peliruudukot {
@@ -45,6 +47,7 @@
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 10px;
+  padding: 20px;
 }
 
 .ruutu {

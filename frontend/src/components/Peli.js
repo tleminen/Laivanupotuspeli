@@ -13,6 +13,25 @@ const toteutaTaulukko = () => {
   return taulukko;
 };
 
+const toteutaVastustajanTaulukko = () => {
+  const taulukko = [];
+  for (let i = 0; i < taulukkoRivit; i++) {
+    taulukko.push(Array(taulukkoSarakkeet).fill(0));
+  }
+  for (let i = 0; i < 5; i++) {
+    var etsiLaivaPaikka = true;
+    while (etsiLaivaPaikka) {
+      const satunnaisRivi = Math.floor(Math.random() * taulukkoRivit);
+      const satunnaisSarake = Math.floor(Math.random() * taulukkoSarakkeet);
+      if (taulukko[satunnaisRivi][satunnaisSarake] === 0) {
+        taulukko[satunnaisRivi][satunnaisSarake] = 3;
+        etsiLaivaPaikka = false;
+      }
+    }
+  }
+  return taulukko;
+};
+
 const Laiva = () => {
   return (
     <img src={kuva} alt="laiva" style={{ width: "50px", height: "50px" }} />
@@ -21,7 +40,7 @@ const Laiva = () => {
 
 const Ruutu = ({ value, onClick, color }) => {
   let sisalto = "";
-  if (value === 0) {
+  if (value === 0 || value === 3) {
     sisalto = "\u00A0";
   } else if (value === -1) {
     sisalto = "\u25A1";
@@ -46,7 +65,7 @@ const Ruutu = ({ value, onClick, color }) => {
 const Laivanupotus = () => {
   const [pelaajanTaulukko, setKayttajanTaulukko] = useState(toteutaTaulukko());
   const [vastustajanTaulukko, setVastustajanTaulukko] = useState(
-    toteutaTaulukko()
+    toteutaVastustajanTaulukko()
   );
   const [kayttajanVuoro, setKayttajanVuoro] = useState(false);
   const [peliAlkaa, setPeliAlkaa] = useState(false);
@@ -93,10 +112,11 @@ const Laivanupotus = () => {
     }
 
     const paivitaTaulukko = [...vastustajanTaulukko];
-    if (paivitaTaulukko[rivi][sarake] === 0) {
-      const satunnaisRivi = Math.floor(Math.random() * taulukkoRivit);
-      const satunnaisSarake = Math.floor(Math.random() * taulukkoSarakkeet);
-      if (pelaajanTaulukko[satunnaisRivi][satunnaisSarake] === 1) {
+    if (
+      paivitaTaulukko[rivi][sarake] === 0 ||
+      paivitaTaulukko[rivi][sarake] === 3
+    ) {
+      if (paivitaTaulukko[rivi][sarake] === 3) {
         paivitaTaulukko[rivi][sarake] = -1;
       } else {
         paivitaTaulukko[rivi][sarake] = 2;
@@ -172,7 +192,7 @@ const Laivanupotus = () => {
                       : ruutu === 2
                       ? "gray"
                       : ruutu === 3
-                      ? "red"
+                      ? "orange"
                       : "blue"
                   }
                 />

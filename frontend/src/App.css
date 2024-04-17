@@ -42,12 +42,19 @@
   display: flex;
 }
 
-.kayttajanTaulukko,
+.kayttajanTaulukko {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  padding-left: 35px;
+}
+
 .vastustajanTaulukko {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 10px;
-  padding: 20px;
+  padding-right: 35px;
+  padding-left: 40px;
 }
 
 .ruutu {

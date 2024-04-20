@@ -49,17 +49,20 @@ exports.putPosts = async (req, res, next) => {
 exports.kirjautuminen = async (req, res, next) => {
   try {
     let postitus = req.body;
-    //let { Kayttajatunnus, Salasana } = req.body;
-    /*const [kayttaja, _] = await uusiKayttaja.kirjautuminen(
+    let { Kayttajatunnus, Salasana } = req.body;
+    const [kayttaja, _] = await uusiKayttaja.kirjautuminen(
       Kayttajatunnus,
       Salasana
     );
-    */
+    
+   /*
     let jsonobj = Object.keys(postitus)[0];
     let obj = JSON.parse(jsonobj);
     let kt = obj.Kayttajatunnus;
     let ss = obj.Salasana;
     const [kayttaja, _] = await uusiKayttaja.kirjautuminen(kt, ss);
+
+    */
 
     res.status(200).json({ kayttaja });
   } catch (error) {

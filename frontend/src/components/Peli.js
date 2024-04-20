@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import kuva from "../image/SijoitusLaiva.png";
 import kuva2 from "../image/osumaKuva.png";
 import { Link } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+
 const taulukkoRivit = 4;
 const taulukkoSarakkeet = 5;
 
@@ -230,9 +232,12 @@ const Laivanupotus = () => {
             <div className="TulosSiirtyma"></div>
             {peliPaattynyt && (
               <Link to={`/laivanupotus/`}>
-              <button onClick={kasitteleSiirtyminenTuloksiin}>
-                Siirry tulosnäkymään
-              </button>
+                <Button
+                  onClick={kasitteleSiirtyminenTuloksiin}
+                  variant="outline-warning"
+                >
+                  Siirry tuloksiin
+                </Button>
               </Link>
             )}
           </tr>

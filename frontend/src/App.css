@@ -18,7 +18,7 @@
 }
 
 .peliAlusta {
-  position: relative; /* Tehdään .TulosSiirtyma:n asemointi suhteessa tähän */
+  position: relative;
   text-align: center;
 }
 
@@ -124,15 +124,15 @@
   overflow: auto;
 }
 ::-webkit-scrollbar {
-  width: 12px; /* Aseta vierityspalkin leveys */
+  width: 12px;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: #ff6e30ad; /* Aseta vierityspalkin väri */
-  border-radius: 6px; /* Pyöristä vierityspalkin reunat */
+  background-color: #ff6e30ad;
+  border-radius: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #ff6e3018; /* Aseta vierityspalkin reuna-alueen väri */
+  background-color: #ff6e3018;
 }
 .tulosTeksti {
   color: white;

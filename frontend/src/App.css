@@ -18,20 +18,19 @@
 }
 
 .peliAlusta {
-  margin-top: 40%;
-  height: 100vh;
-  margin-right: 80%;
+  position: relative; /* Tehdään .TulosSiirtyma:n asemointi suhteessa tähän */
+  text-align: center;
 }
 
 .TulosSiirtyma {
-  padding: 40px;
+  margin-top: 500px;
 }
 
 .peliruudukot {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 100%; /* asettaa ruudukot yhdessä keskelle */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .vali {

@@ -21,11 +21,11 @@ const GlobalState = (props) => {
     }
   };
   const postKirjautuminen = async (user, password) => {
-    console.log("Käyttäjä globalstate: ", user, " Salasana ", password);
+    console.log("Käyttäjä globalstate: ", user);
     try {
       const post = { Kayttajatunnus: user, Salasana: password };
 
-      console.log("post: ", post);
+      //console.log("post: ", post);
       let res = await axios.post(`http://localhost:3000/laivanupotus/kirjaudu`, post);
       let { data } = res;
       console.log("GET_KAYTTAJAID:", data.posts);

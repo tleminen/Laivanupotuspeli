@@ -43,6 +43,15 @@
   background-color: transparent;
 }
 
+.lopetusTeksti {
+  color: rgb(255, 171, 2);
+  font-size: 40px;
+  font-weight: bold;
+  padding: 10px;
+  -webkit-text-stroke: 2px black;
+  -webkit-text-fill-color: orange;
+}
+
 .vali {
   width: 100px;
 }

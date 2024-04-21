@@ -5,39 +5,54 @@ import Peli from "./components/Peli";
 import Tulos from "./components/Tulos";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import GlobalState from "./context/GlobalState";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import taustamusa from "./image/taustamusiikki.mp3";
 
+const App = () => {
+  const [musiikki] = useState(new Audio(taustamusa));
 
-function App() {
+  useEffect(() => {
+    musiikki.volume = 0.3;
+    musiikki.loop = true;
+
+    const handleClick = () => {
+      musiikki.play();
+      document.removeEventListener("click", handleClick);
+    };
+    document.addEventListener("click", handleClick);
+
+    return () => {
+      musiikki.pause();
+    };
+  }, [musiikki]);
+
   return (
-    
     <GlobalState>
       <div className="taustaKuva">
-      {" "}
-      <Router>
         {" "}
-        <div className="App">
+        <Router>
           {" "}
-          <div className="container">
+          <div className="App">
             {" "}
-            <Routes>
+            <div className="container">
               {" "}
-              <Route path="/" element={<Kirjautuminen />} />{" "}
-              <Route
-                path="/laivanupotus/rekisterointi/"
-                element={<Rekisteroityminen />}
-              />{" "}
-              <Route path="/laivanupotus/peli" element={<Peli />} />{" "}
-              
-              <Route path="/laivanupotus/" element={<Tulos />} />{" "}
-            </Routes>{" "}
+              <Routes>
+                {" "}
+                <Route path="/" element={<Kirjautuminen />} />{" "}
+                <Route
+                  path="/laivanupotus/rekisterointi/"
+                  element={<Rekisteroityminen />}
+                />{" "}
+                <Route path="/laivanupotus/peli" element={<Peli />} />{" "}
+                <Route path="/laivanupotus/" element={<Tulos />} />{" "}
+              </Routes>{" "}
+            </div>{" "}
           </div>{" "}
-        </div>{" "}
-      </Router>{" "}
+        </Router>{" "}
       </div>
     </GlobalState>
   );
-}
+};
 
 export default App;

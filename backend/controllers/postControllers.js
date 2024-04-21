@@ -33,13 +33,15 @@ exports.createNewPost = async (req, res, next) => {
     next(error);
   }
 };
-//PUT pisteen lisäys +1
+//PATCH pisteen lisäys +1
 exports.patchPosts = async (req, res, next) => {
   try {
-    const { id } = req.body;
-    if (id !== undefined) {
-      await uusiKayttaja.updateByID(id);
+    const { Id } = req.body;
+    console.log(Id);
+    if (Id !== undefined) {
+      await uusiKayttaja.updateByID(Id);
       res.status(200).json({ message: "Pisteet päivittynyt" });
+      console.log("Tehty------->");
     } else {
       // Jos ID on määrittelemätön, anna virheilmoitus
       throw new Error("ID on määrittelemätön");

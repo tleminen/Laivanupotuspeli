@@ -22,8 +22,4 @@ const TulosTiedot = ({ kayttaja }) => {
     </div>
   );
 };
-/*Puhelintieto.propTypes = {
- yhteystieto: PropTypes.object.isRequired,
- //deleteClickHandler: PropTypes.func.isRequired,//ei tarvita enää
-};*/
 export default TulosTiedot;

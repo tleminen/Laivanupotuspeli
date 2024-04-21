@@ -37,7 +37,7 @@ class Post {
 
   //pisteiden päivitys
   static updateByID(ID) {
-    let sql = `UPDATE pelaaja SET Pisteet = Pisteet +1 WHERE id = ${ID}`;
+    let sql = `UPDATE pelaaja SET Pisteet = Pisteet +1 WHERE id = '${ID}'`;
     return db.execute(sql);
   }
 

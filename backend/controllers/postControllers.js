@@ -34,11 +34,16 @@ exports.createNewPost = async (req, res, next) => {
   }
 };
 //PUT pisteen lisäys +1
-exports.putPosts = async (req, res, next) => {
+exports.patchPosts = async (req, res, next) => {
   try {
-    let ID = req.params.id;
-    await uusiKayttaja.updateByID(ID);
-    res.status(200).json({ message: "Pisteet päivittynyt" });
+    const { id } = req.body;
+    if (id !== undefined) {
+      await uusiKayttaja.updateByID(id);
+      res.status(200).json({ message: "Pisteet päivittynyt" });
+    } else {
+      // Jos ID on määrittelemätön, anna virheilmoitus
+      throw new Error("ID on määrittelemätön");
+    }
   } catch (error) {
     console.log(error);
     next(error);
@@ -53,16 +58,6 @@ exports.kirjautuminen = async (req, res, next) => {
       Kayttajatunnus,
       Salasana
     );
-
-    /*
-    let postitus = req.body;
-    let jsonobj = Object.keys(postitus)[0];
-    let obj = JSON.parse(jsonobj);
-    let kt = obj.Kayttajatunnus;
-    let ss = obj.Salasana;
-    const [kayttaja, _] = await uusiKayttaja.kirjautuminen(kt, ss);
-
-    */
 
     res.status(200).json({ posts });
   } catch (error) {

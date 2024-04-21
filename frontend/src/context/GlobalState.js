@@ -26,7 +26,10 @@ const GlobalState = (props) => {
       const post = { Kayttajatunnus: user, Salasana: password };
 
       //console.log("post: ", post);
-      let res = await axios.post(`http://localhost:3000/laivanupotus/kirjaudu`, post);
+      let res = await axios.post(
+        `http://localhost:3000/laivanupotus/kirjaudu`,
+        post
+      );
       let { data } = res;
       console.log("GET_KAYTTAJAID:", data.posts);
       dispatch({ type: GET_KAYTTAJAID, payload: data.posts });
@@ -52,14 +55,14 @@ const GlobalState = (props) => {
     }
   };
   const updateKayttajaPisteet = async (id) => {
+    console.log("Globalstate: ", id);
     try {
       const res = await axios
-        .put(`http://localhost:3000/laivanupotus/${id}`)
+        .patch(`http://localhost:3000/laivanupotus`, { id })
         .then((res) => {
           dispatch({ type: "EDIT_KAYTTAJA", payload: res.data });
           console.log(res.data.posts);
         });
-      console.log(res);
     } catch (error) {
       console.error(error);
     }

@@ -6,7 +6,7 @@ router.route("/").post(postControllers.createNewPost); //rekisteröityminen
 
 router.route("/").get(postControllers.getAllPosts); //hae kaikki
 
-router.route("/:id").put(postControllers.putPosts); //muokkaa IDn perusteella
+router.route("/").patch(postControllers.patchPosts); //muokkaa IDn perusteella
 
 router.route("/kirjaudu").post(postControllers.kirjautuminen); //Kirjautuminen
 

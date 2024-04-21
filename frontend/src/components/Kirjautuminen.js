@@ -10,6 +10,7 @@ const Kirjautuminen = () => {
   const userRef = useRef();
   const errRef = useRef();
 
+
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -28,7 +29,7 @@ const Kirjautuminen = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = KayttajaContext.postKirjautuminen(user, password);
+      const response = await KayttajaContext.postKirjautuminen(user, password);
 
       console.log((response?.data));
       console.log((response));

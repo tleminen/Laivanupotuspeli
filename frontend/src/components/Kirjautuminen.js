@@ -3,7 +3,6 @@ import { useRef, useState, useEffect, useContext } from "react";
 import AuthContext from "../context/AuthProvider";
 import { Link } from "react-router-dom";
 import kuva from "../image/logo.png";
-const LOGIN_URL = "/auth";
 
 const Kirjautuminen = () => {
   const { setAuth } = useContext(AuthContext);
@@ -29,17 +28,24 @@ const Kirjautuminen = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await KayttajaContext.postKirjautuminen(user, password);
+      
+    const response = await KayttajaContext.postKirjautuminen(user, password);
 
-      console.log((response?.data));
-      console.log((response));
+      console.log("Konteksti: ", response);
 
-      const accessToken = response?.data?.accessToken;
-      const roles = response?.data?.roles;
-      setAuth({ user, password, roles, accessToken });
-      setUser("");
-      setPassword("");
-      setSuccess(true);
+      //console.log((response?.data));
+      //console.log((response));
+
+      if (response) {
+        // Kirjautuminen onnistui
+        setUser("");
+        setPassword("");
+        setSuccess(true);
+      } else {
+        // Kirjautuminen epäonnistui
+        setErrorMessage("Kirjautuminen epäonnistui");
+        errRef.current.focus();
+      }
     } catch (err) {
       if (!err?.response) {
         setErrorMessage("No Server Response");

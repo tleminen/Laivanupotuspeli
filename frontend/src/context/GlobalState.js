@@ -30,9 +30,13 @@ const GlobalState = (props) => {
       let { data } = res;
       console.log("GET_KAYTTAJAID:", data.posts);
       dispatch({ type: GET_KAYTTAJAID, payload: data.posts });
+
+      //Palauttaa true, jos vastauksessa on käyttäjän ID
+      return !!data.posts.length;
       //return data;
     } catch (error) {
       console.error(error);
+      return false;
     }
   };
   const setKayttaja = async (uusiKayttaja) => {

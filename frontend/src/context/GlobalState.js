@@ -1,7 +1,7 @@
 import React, { useReducer } from "react";
 import AppReducer from "./AppReducer";
 import KayttajaContext from "./KayttajaContext";
-import { GET_KAYTTAJAT } from "./types";
+import { GET_KAYTTAJAT, GET_KAYTTAJAID } from "./types";
 import axios from "axios";
 const GlobalState = (props) => {
   //initial state
@@ -21,20 +21,21 @@ const GlobalState = (props) => {
     }
   };
   const postKirjautuminen = async (user, password) => {
+    console.log("Käyttäjä globalstate: ", user, " Salasana ", password);
     try {
       const post = { Kayttajatunnus: user, Salasana: password };
-      //let res = await axios.post(sql, JSON.stringify(user, password));
-      let res = await axios.get(`http://localhost:3000/laivanupotus`, post);
+
+      console.log("post: ", post);
+      let res = await axios.get(`http://localhost:3000/laivanupotus/${user}`, post);
       let { data } = res;
-      console.log("GET_KAYTTAJAID:");
-      dispatch({ type: "GET_KAYTTAJAID", payload: data.posts });
+      console.log("GET_KAYTTAJAID:", data.posts);
+      dispatch({ type: GET_KAYTTAJAID, payload: data.posts });
       //return data;
     } catch (error) {
       console.error(error);
     }
   };
   const setKayttaja = async (uusiKayttaja) => {
-    console.log("printtaa tähän: "+JSON.stringify(uusiKayttaja));
     try {
       const res = await axios
         .post(`http://localhost:3000/laivanupotus`, uusiKayttaja)

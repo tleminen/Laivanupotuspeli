@@ -48,14 +48,14 @@ exports.putPosts = async (req, res, next) => {
 //GET kirjautuminen
 exports.kirjautuminen = async (req, res, next) => {
   try {
-    let postitus = req.body;
     let { Kayttajatunnus, Salasana } = req.body;
-    const [kayttaja, _] = await uusiKayttaja.kirjautuminen(
+    const [posts, _] = await uusiKayttaja.kirjautuminen(
       Kayttajatunnus,
       Salasana
     );
-    
-   /*
+
+    /*
+    let postitus = req.body;
     let jsonobj = Object.keys(postitus)[0];
     let obj = JSON.parse(jsonobj);
     let kt = obj.Kayttajatunnus;
@@ -64,7 +64,7 @@ exports.kirjautuminen = async (req, res, next) => {
 
     */
 
-    res.status(200).json({ kayttaja });
+    res.status(200).json({ posts });
   } catch (error) {
     console.log(error);
     //Viedään error julkiseen virheiden käsittelijään

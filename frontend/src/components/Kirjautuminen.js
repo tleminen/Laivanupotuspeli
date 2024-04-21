@@ -30,8 +30,8 @@ const Kirjautuminen = () => {
     try {
       const response = KayttajaContext.postKirjautuminen(user, password);
 
-      console.log(JSON.stringify(response?.data));
-      console.log(JSON.stringify(response));
+      console.log((response?.data));
+      console.log((response));
 
       const accessToken = response?.data?.accessToken;
       const roles = response?.data?.roles;

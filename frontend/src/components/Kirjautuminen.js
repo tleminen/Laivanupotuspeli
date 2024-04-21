@@ -78,7 +78,7 @@ const Kirjautuminen = () => {
         <section>
           <p
             ref={errRef}
-            className={errorMessage ? "errmsg" : "offscreen"}
+            className={errorMessage ? "errmsg error" : "offscreen"}
             aria-live="assertive"
           >
             {errorMessage}

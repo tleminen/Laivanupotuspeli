@@ -26,7 +26,7 @@ const GlobalState = (props) => {
       const post = { Kayttajatunnus: user, Salasana: password };
 
       console.log("post: ", post);
-      let res = await axios.get(`http://localhost:3000/laivanupotus/${user}`, post);
+      let res = await axios.post(`http://localhost:3000/laivanupotus/kirjaudu`, post);
       let { data } = res;
       console.log("GET_KAYTTAJAID:", data.posts);
       dispatch({ type: GET_KAYTTAJAID, payload: data.posts });

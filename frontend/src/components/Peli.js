@@ -183,7 +183,13 @@ const Laivanupotus = () => {
         <tbody>
           <tr>
             <div className="peliruudukot">
-              {Suorakulmio && <div className="suorakulmio"></div>}
+              {Suorakulmio && (
+                <>
+                  {" "}
+                  <div className="suorakulmio"></div>{" "}
+                  <p className="lopetusTeksti">Peli päättyi</p>
+                </>
+              )}
               <div className="taulukko">
                 <div className="kayttajanTaulukko">
                   {pelaajanTaulukko.map((rivi, riviPaikka) =>

@@ -73,10 +73,12 @@ const Laivanupotus = () => {
   const [peliAlkaa, setPeliAlkaa] = useState(false);
   const [sijoitetutLaivat, setSijoitetutLaivat] = useState(0);
   const [peliPaattynyt, setPeliPaattynyt] = useState(false);
+  const [Suorakulmio, setSuorakulmio] = useState(false);
 
   useEffect(() => {
     if (peliPaattynyt) {
       // pelin lopetustoiminnot tähän vielä
+      setSuorakulmio(true);
       console.log("Peli päättyi");
     }
   }, [peliPaattynyt]);
@@ -181,6 +183,7 @@ const Laivanupotus = () => {
         <tbody>
           <tr>
             <div className="peliruudukot">
+              {Suorakulmio && <div className="suorakulmio"></div>}
               <div className="taulukko">
                 <div className="kayttajanTaulukko">
                   {pelaajanTaulukko.map((rivi, riviPaikka) =>

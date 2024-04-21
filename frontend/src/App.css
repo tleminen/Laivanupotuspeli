@@ -33,6 +33,16 @@
   transform: translate(-50%, -50%);
 }
 
+.suorakulmio {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 830px;
+  height: 370px;
+  background-color: transparent;
+}
+
 .vali {
   width: 100px;
 }

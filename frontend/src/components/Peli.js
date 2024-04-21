@@ -3,6 +3,8 @@ import kuva from "../image/SijoitusLaiva.png";
 import kuva2 from "../image/osumaKuva.png";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
+import aani1 from "../image/osumaAani.mp3";
+import aani2 from "../image/ohiAani.mp3";
 
 const taulukkoRivit = 4;
 const taulukkoSarakkeet = 5;
@@ -74,6 +76,8 @@ const Laivanupotus = () => {
   const [sijoitetutLaivat, setSijoitetutLaivat] = useState(0);
   const [peliPaattynyt, setPeliPaattynyt] = useState(false);
   const [Suorakulmio, setSuorakulmio] = useState(false);
+  const [osumanAANI] = useState(new Audio(aani1));
+  const [ohiAANI] = useState(new Audio(aani2));
 
   useEffect(() => {
     if (peliPaattynyt) {
@@ -122,8 +126,10 @@ const Laivanupotus = () => {
     ) {
       if (paivitaTaulukko[rivi][sarake] === 3) {
         paivitaTaulukko[rivi][sarake] = -1;
+        osumanAANI.play();
       } else {
         paivitaTaulukko[rivi][sarake] = 2;
+        ohiAANI.play();
       }
       setVastustajanTaulukko(paivitaTaulukko);
       setKayttajanVuoro(false);

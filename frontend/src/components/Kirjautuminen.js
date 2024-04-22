@@ -3,17 +3,18 @@ import { useRef, useState, useEffect, useContext } from "react";
 import AuthContext from "../context/AuthProvider";
 import { Link } from "react-router-dom";
 import kuva from "../image/logo.png";
+import klikkaaminen from "../image/klikkaus.mp3";
 
 const Kirjautuminen = () => {
   const { setAuth } = useContext(AuthContext);
   const userRef = useRef();
   const errRef = useRef();
 
-
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [success, setSuccess] = useState(false);
+  const [klikAANI] = useState(new Audio(klikkaaminen));
 
   const KayttajaContext = useContext(ContextKayttaja);
 
@@ -27,9 +28,9 @@ const Kirjautuminen = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    klikAANI.play();
     try {
-      
-    const response = await KayttajaContext.postKirjautuminen(user, password);
+      const response = await KayttajaContext.postKirjautuminen(user, password);
 
       console.log("Konteksti: ", response);
 
@@ -57,6 +58,11 @@ const Kirjautuminen = () => {
     }
   };
 
+  const AloitaPeliPainallusAani = () => {
+    const click = new Audio(klikkaaminen);
+    click.play();
+  };
+
   return (
     <>
       {success ? (
@@ -65,7 +71,10 @@ const Kirjautuminen = () => {
           <br />
           <span className="line">
             <Link to="/laivanupotus/peli/">
-              <button className="btn btn-primary rounded-circle btn-lg">
+              <button
+                className="btn btn-primary rounded-circle btn-lg"
+                onClick={AloitaPeliPainallusAani}
+              >
                 Aloita peli
               </button>
             </Link>
@@ -80,8 +89,12 @@ const Kirjautuminen = () => {
           >
             {errorMessage}
           </p>
-          <img src={kuva} alt="Kirjautuminen Laivanupotuspeliin" className="kuvanKoko" />
-          
+          <img
+            src={kuva}
+            alt="Kirjautuminen Laivanupotuspeliin"
+            className="kuvanKoko"
+          />
+
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <input
@@ -116,10 +129,11 @@ const Kirjautuminen = () => {
             </div>
             <br></br>
           </form>
-            <li className="punainen">
-              <Link to="/laivanupotus/rekisterointi" className="punainen">Luo uusi käyttäjä?
-              </Link>
-            </li>
+          <li className="punainen">
+            <Link to="/laivanupotus/rekisterointi" className="punainen">
+              Luo uusi käyttäjä?
+            </Link>
+          </li>
         </section>
       )}
     </>

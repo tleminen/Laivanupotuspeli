@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import kuva from "../image/SijoitusLaiva.png";
 import kuva2 from "../image/osumaKuva.png";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import aani1 from "../image/osumaAani.mp3";
 import aani2 from "../image/ohiAani.mp3";
 import klikkaaminen from "../image/klikkaus.mp3";
+import AuthContext from "../context/AuthProvider";
 
 const taulukkoRivit = 4;
 const taulukkoSarakkeet = 5;
 
 const toteutaTaulukko = () => {
+
   const taulukko = [];
   for (let i = 0; i < taulukkoRivit; i++) {
     taulukko.push(Array(taulukkoSarakkeet).fill(0));
@@ -68,6 +70,9 @@ const Ruutu = ({ value, onClick, color }) => {
 };
 
 const Laivanupotus = () => {
+
+  const { auth } = useContext(AuthContext);
+
   const [pelaajanTaulukko, setKayttajanTaulukko] = useState(toteutaTaulukko());
   const [vastustajanTaulukko, setVastustajanTaulukko] = useState(
     toteutaVastustajanTaulukko()
@@ -186,6 +191,10 @@ const Laivanupotus = () => {
     klikAANI.volume = 1;
     setPeliPaattynyt(true);
   };
+
+  if (!auth) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div className="peliAlusta">

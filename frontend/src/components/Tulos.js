@@ -2,12 +2,15 @@ import React, { Component, useContext, useEffect } from "react";
 import TulosTiedot from "./TulosTiedot";
 import kayttajaContext from "../context/KayttajaContext";
 import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import klikkaaminen from "../image/klikkaus.mp3";
+import AuthContext from "../context/AuthProvider";
 
 const Tulos = () => {
   const KayttajaContext = useContext(kayttajaContext);
   console.log("Käyttäjät: ", KayttajaContext.kayttajat);
+
+  const { auth, setAuth } = useContext(AuthContext);
 
   useEffect(() => {
     KayttajaContext.getKayttajat();
@@ -22,6 +25,18 @@ const Tulos = () => {
     const click = new Audio(klikkaaminen);
     click.play();
   };
+
+  const navigate = useNavigate();
+
+  const handleKirjauduUlos = () => {
+    // Tee tarvittavat toimenpiteet uloskirjautumisen suorittamiseksi
+    setAuth(false); // Aseta kirjautumistila falseksi
+    navigate("/"); // Ohjaa käyttäjä kirjautumissivulle
+  };
+
+  if (!auth) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <>
@@ -41,7 +56,10 @@ const Tulos = () => {
         </div>
         <div>
           <Link to={`/`}>
-            <Button variant="outline-danger" onClick={NappuloidenPainallusAani}>
+            <Button variant="outline-danger" onClick={() => {
+              handleKirjauduUlos();
+              NappuloidenPainallusAani();
+            }}>
               Kirjaudu ulos
             </Button>
           </Link>

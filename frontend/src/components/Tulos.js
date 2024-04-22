@@ -3,6 +3,7 @@ import TulosTiedot from "./TulosTiedot";
 import kayttajaContext from "../context/KayttajaContext";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
+import klikkaaminen from "../image/klikkaus.mp3";
 
 const Tulos = () => {
   const KayttajaContext = useContext(kayttajaContext);
@@ -16,6 +17,11 @@ const Tulos = () => {
   }, []);
 
   console.log("ennen return: " + KayttajaContext.kayttajat);
+
+  const NappuloidenPainallusAani = () => {
+    const click = new Audio(klikkaaminen);
+    click.play();
+  };
 
   return (
     <>
@@ -35,10 +41,17 @@ const Tulos = () => {
         </div>
         <div>
           <Link to={`/`}>
-            <Button variant="outline-danger">Kirjaudu ulos</Button>
+            <Button variant="outline-danger" onClick={NappuloidenPainallusAani}>
+              Kirjaudu ulos
+            </Button>
           </Link>
           <Link to={`/laivanupotus/peli`}>
-            <Button variant="outline-success">Pelaa uudelleen</Button>
+            <Button
+              variant="outline-success"
+              onClick={NappuloidenPainallusAani}
+            >
+              Pelaa uudelleen
+            </Button>
           </Link>
         </div>
       </React.Fragment>

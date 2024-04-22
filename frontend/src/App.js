@@ -13,7 +13,7 @@ const App = () => {
   const [musiikki] = useState(new Audio(taustamusa));
 
   useEffect(() => {
-    musiikki.volume = 0.3;
+    musiikki.volume = 0.2;
     musiikki.loop = true;
 
     const handleClick = () => {

@@ -183,6 +183,7 @@ const Laivanupotus = () => {
 
   const kasitteleSiirtyminenTuloksiin = () => {
     klikAANI.play();
+    klikAANI.volume = 1;
     setPeliPaattynyt(true);
   };
 

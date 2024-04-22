@@ -29,9 +29,8 @@ const Tulos = () => {
   const navigate = useNavigate();
 
   const handleKirjauduUlos = () => {
-    // Tee tarvittavat toimenpiteet uloskirjautumisen suorittamiseksi
-    setAuth(false); // Aseta kirjautumistila falseksi
-    navigate("/"); // Ohjaa käyttäjä kirjautumissivulle
+    setAuth(false);
+    navigate("/");
   };
 
   if (!auth) {
@@ -56,10 +55,13 @@ const Tulos = () => {
         </div>
         <div>
           <Link to={`/`}>
-            <Button variant="outline-danger" onClick={() => {
-              handleKirjauduUlos();
-              NappuloidenPainallusAani();
-            }}>
+            <Button
+              variant="outline-danger"
+              onClick={() => {
+                handleKirjauduUlos();
+                NappuloidenPainallusAani();
+              }}
+            >
               Kirjaudu ulos
             </Button>
           </Link>

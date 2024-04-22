@@ -14,7 +14,6 @@ const TulosTiedot = ({ kayttaja }) => {
   const contextKayttaja = useContext(KayttajaContext);
   const onUpdateClick = (Id) => {
     contextKayttaja.updateKayttajaPisteet(Id);
-    //window.location.reload();
     setPisteet(pisteet + 1);
     navigate(".", { replace: true });
     klikAANI.play();

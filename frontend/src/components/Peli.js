@@ -12,7 +12,6 @@ const taulukkoRivit = 4;
 const taulukkoSarakkeet = 5;
 
 const toteutaTaulukko = () => {
-
   const taulukko = [];
   for (let i = 0; i < taulukkoRivit; i++) {
     taulukko.push(Array(taulukkoSarakkeet).fill(0));
@@ -70,7 +69,6 @@ const Ruutu = ({ value, onClick, color }) => {
 };
 
 const Laivanupotus = () => {
-
   const { auth } = useContext(AuthContext);
 
   const [pelaajanTaulukko, setKayttajanTaulukko] = useState(toteutaTaulukko());
@@ -88,7 +86,6 @@ const Laivanupotus = () => {
 
   useEffect(() => {
     if (peliPaattynyt) {
-      // pelin lopetustoiminnot tähän vielä
       setSuorakulmio(true);
       console.log("Peli päättyi");
     }

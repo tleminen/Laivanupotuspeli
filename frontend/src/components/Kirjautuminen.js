@@ -39,6 +39,7 @@ const Kirjautuminen = () => {
         setUser("");
         setPassword("");
         setSuccess(true);
+        setAuth(true);
       } else {
         // Kirjautuminen epäonnistui
         setErrorMessage("Kirjautuminen epäonnistui");

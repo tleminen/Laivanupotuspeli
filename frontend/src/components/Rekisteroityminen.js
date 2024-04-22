@@ -54,6 +54,7 @@ const LisaaKayttaja = () => {
               value={Kayttajatunnus}
               onChange={(event) => setKayttajatunnus(event.target.value)}
               error={virheet.Kayttajatunnus}
+              required
             />
           </div>
           <div className="form-group">
@@ -69,6 +70,7 @@ const LisaaKayttaja = () => {
               value={Salasana}
               onChange={(event) => setSalasana(event.target.value)}
               error={virheet.Salasana}
+              required
             />
           </div>
           <br></br>

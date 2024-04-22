@@ -33,9 +33,6 @@ const Kirjautuminen = () => {
 
       console.log("Konteksti: ", response);
 
-      //console.log((response?.data));
-      //console.log((response));
-
       if (response) {
         // Kirjautuminen onnistui
         setUser("");

@@ -9,6 +9,7 @@ const TulosTiedot = ({ kayttaja }) => {
   const contextKayttaja = useContext(KayttajaContext);
   const onUpdateClick = (Id) => {
     contextKayttaja.updateKayttajaPisteet(Id);
+    window.location.reload();
     navigate("/");
   };
 
@@ -17,7 +18,7 @@ const TulosTiedot = ({ kayttaja }) => {
     <div>
       <h1 className="tulosTeksti">
         {Kayttajatunnus} pst: {Pisteet}{" "}
-        <Button onClick={onUpdateClick.bind(this, {Id})}>+1</Button>
+        <Button variant="outline-light" onClick={onUpdateClick.bind(this, {Id})}>+1</Button>
       </h1>
     </div>
   );

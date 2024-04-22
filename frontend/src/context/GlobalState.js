@@ -58,7 +58,7 @@ const GlobalState = (props) => {
     console.log("Globalstate: ", id);
     try {
       const res = await axios
-        .patch(`http://localhost:3000/laivanupotus`, { Id: id })
+        .patch(`http://localhost:3000/laivanupotus`, { Id: id.Id })
         .then((res) => {
           dispatch({ type: "EDIT_KAYTTAJA", payload: res.data });
           console.log(res.data.posts);

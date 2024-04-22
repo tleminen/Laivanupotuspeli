@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import aani1 from "../image/osumaAani.mp3";
 import aani2 from "../image/ohiAani.mp3";
+import klikkaaminen from "../image/klikkaus.mp3";
 
 const taulukkoRivit = 4;
 const taulukkoSarakkeet = 5;
@@ -78,6 +79,7 @@ const Laivanupotus = () => {
   const [Suorakulmio, setSuorakulmio] = useState(false);
   const [osumanAANI] = useState(new Audio(aani1));
   const [ohiAANI] = useState(new Audio(aani2));
+  const [klikAANI] = useState(new Audio(klikkaaminen));
 
   useEffect(() => {
     if (peliPaattynyt) {
@@ -91,7 +93,7 @@ const Laivanupotus = () => {
     if (peliAlkaa && kayttajanVuoro === false) {
       const timer = setTimeout(() => {
         vastustajanVuoroKasittely();
-      }, 1000);
+      }, 3000);
       return () => clearTimeout(timer);
     }
   }, [kayttajanVuoro, peliAlkaa]);
@@ -180,6 +182,7 @@ const Laivanupotus = () => {
   }, [peliAlkaa, pelaajanTaulukko, vastustajanTaulukko]);
 
   const kasitteleSiirtyminenTuloksiin = () => {
+    klikAANI.play();
     setPeliPaattynyt(true);
   };
 

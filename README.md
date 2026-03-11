@@ -1,1 +1,1 @@
-2024 vuonna tehty yliopiston Web-ohjelmointi 2 projektityö
+Kolmen opiskelijan tekemä laivanupptuspeli kurssilla Web-ohjelmointi 2 (Projektityö)
